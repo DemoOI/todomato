@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TodoMatoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--產生期間發現錯誤:
+警告 6013: 資料表/檢視 'TodoMato.dbo.Member' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+        <EntityType Name="Member">
+          <Property Name="MemberID" Type="nchar" MaxLength="10" />
+        </EntityType>-->
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="TagID" Type="char" MaxLength="36" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Todo">
+          <Key>
+            <PropertyRef Name="TodoID" />
+          </Key>
+          <Property Name="TodoID" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="NeedTomato" Type="int" />
+          <Property Name="DoneTomato" Type="int" />
+          <Property Name="IsFinish" Type="bit" />
+          <Property Name="Creator" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="Updator" Type="char" MaxLength="36" />
+          <Property Name="UpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tomato">
+          <Key>
+            <PropertyRef Name="TomatoID" />
+          </Key>
+          <Property Name="TomatoID" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="TodoID" Type="char" MaxLength="36" Nullable="false" />
+          <Property Name="SpentTime" Type="nchar" MaxLength="10" />
+          <Property Name="CreateTime" Type="nchar" MaxLength="10" />
+          <Property Name="FinishTime" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Tomato_Todo">
+          <End Role="Todo" Type="Self.Todo" Multiplicity="1" />
+          <End Role="Tomato" Type="Self.Tomato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Todo">
+              <PropertyRef Name="TodoID" />
+            </Principal>
+            <Dependent Role="Tomato">
+              <PropertyRef Name="TodoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TodoMatoModelStoreContainer">
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Todo" EntityType="Self.Todo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tomato" EntityType="Self.Tomato" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tomato_Todo" Association="Self.FK_Tomato_Todo">
+            <End Role="Todo" EntitySet="Todo" />
+            <End Role="Tomato" EntitySet="Tomato" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TodoMatoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="TagID" Type="String" MaxLength="36" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Todo">
+          <Key>
+            <PropertyRef Name="TodoID" />
+          </Key>
+          <Property Name="TodoID" Type="String" MaxLength="36" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NeedTomato" Type="Int32" />
+          <Property Name="DoneTomato" Type="Int32" />
+          <Property Name="IsFinish" Type="Boolean" />
+          <Property Name="Creator" Type="String" MaxLength="36" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Updator" Type="String" MaxLength="36" FixedLength="true" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tomatoes" Relationship="Self.FK_Tomato_Todo" FromRole="Todo" ToRole="Tomato" />
+        </EntityType>
+        <EntityType Name="Tomato">
+          <Key>
+            <PropertyRef Name="TomatoID" />
+          </Key>
+          <Property Name="TomatoID" Type="String" MaxLength="36" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TodoID" Type="String" MaxLength="36" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="SpentTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="FinishTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Todo" Relationship="Self.FK_Tomato_Todo" FromRole="Tomato" ToRole="Todo" />
+        </EntityType>
+        <Association Name="FK_Tomato_Todo">
+          <End Role="Todo" Type="Self.Todo" Multiplicity="1" />
+          <End Role="Tomato" Type="Self.Tomato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Todo">
+              <PropertyRef Name="TodoID" />
+            </Principal>
+            <Dependent Role="Tomato">
+              <PropertyRef Name="TodoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TodoMatoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Todoes" EntityType="Self.Todo" />
+          <EntitySet Name="Tomatoes" EntityType="Self.Tomato" />
+          <AssociationSet Name="FK_Tomato_Todo" Association="Self.FK_Tomato_Todo">
+            <End Role="Todo" EntitySet="Todoes" />
+            <End Role="Tomato" EntitySet="Tomatoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TodoMatoModelStoreContainer" CdmEntityContainer="TodoMatoEntities">
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="TodoMatoModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Todoes">
+            <EntityTypeMapping TypeName="TodoMatoModel.Todo">
+              <MappingFragment StoreEntitySet="Todo">
+                <ScalarProperty Name="TodoID" ColumnName="TodoID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NeedTomato" ColumnName="NeedTomato" />
+                <ScalarProperty Name="DoneTomato" ColumnName="DoneTomato" />
+                <ScalarProperty Name="IsFinish" ColumnName="IsFinish" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Updator" ColumnName="Updator" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tomatoes">
+            <EntityTypeMapping TypeName="TodoMatoModel.Tomato">
+              <MappingFragment StoreEntitySet="Tomato">
+                <ScalarProperty Name="TomatoID" ColumnName="TomatoID" />
+                <ScalarProperty Name="TodoID" ColumnName="TodoID" />
+                <ScalarProperty Name="SpentTime" ColumnName="SpentTime" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

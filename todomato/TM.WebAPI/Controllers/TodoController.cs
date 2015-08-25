@@ -20,7 +20,7 @@ namespace TM.WebAPI.Controllers
 
         // GET: api/Todo
         [HttpGet]
-        public HttpResponseMessage Todo()
+        public HttpResponseMessage Get()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace TM.WebAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Todo(int CurrPage, int PageSize)
+        public HttpResponseMessage Get(int CurrPage, int PageSize)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace TM.WebAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Todo(int TodoID)
+        public HttpResponseMessage Get(int TodoID)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace TM.WebAPI.Controllers
         }
  
         // POST: api/Todo
-        public HttpResponseMessage Post(TodoViewModel models)
+        public HttpResponseMessage Add(TodoViewModel models)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace TM.WebAPI.Controllers
         }
 
         // PUT: api/Todo/5
-        public HttpResponseMessage Put(TodoViewModel models)
+        public HttpResponseMessage Update(TodoViewModel models)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace TM.WebAPI.Controllers
         }
 
         // DELETE: api/Todo/5
-        public HttpResponseMessage Delete(int id)
+        public HttpResponseMessage Delete(Guid id)
         {
             try
             {

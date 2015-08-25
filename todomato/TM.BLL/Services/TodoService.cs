@@ -71,8 +71,22 @@ namespace TM.BLL.Services
         /// <param name="models"></param>
         public void SaveTodo(TodoViewModel models)
         {
-            Mapper.CreateMap<TodoViewModel, Todo>();
-            var todo = Mapper.Map<TodoViewModel, Todo>(models);
+            // 建立Mapping邏輯，只更新
+            Mapper.CreateMap<TodoViewModel, Todo>()
+                .ForMember(x => x.Updator, y => y.UseValue("system"))
+                .ForMember(x => x.UpdateTime, y => y.UseValue(DateTime.Now))
+                .ForMember(x => x.TodoID, y => y.Ignore())
+                .ForMember(x => x.CreateTime, y => y.Ignore())
+                .ForMember(x => x.Creator, y => y.Ignore())
+                .ForMember(x => x.IsFinish, y => y.Ignore())
+                .ForMember(x => x.NeedTomato, y => y.Ignore())
+                .ForMember(x => x.DoneTomato, y => y.Ignore());
+
+            Todo todo = db.GetByID(models.TodoID); 
+   
+            // 只更新ViewModel的部分到Entity  
+            Mapper.Map(models, todo);  
+               
             db.Update(todo);
         }
 

@@ -76,6 +76,8 @@
       <DependentUpon>TMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\TodoViewModel.cs" />
+    <Compile Include="ViewModel\TomatoListByDayViewModel.cs" />
+    <Compile Include="ViewModel\TomatoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="TMModel.edmx">

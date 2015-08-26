@@ -20,7 +20,7 @@ namespace TM.WebAPI.Controllers
 
         // GET: api/Todo
         [HttpGet]
-        public HttpResponseMessage Get()
+        public HttpResponseMessage GetTodo()
         {
             try
             {

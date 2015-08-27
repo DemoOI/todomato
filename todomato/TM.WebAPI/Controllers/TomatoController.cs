@@ -43,7 +43,7 @@ namespace TM.WebAPI.Controllers
             try
             {
                 // 取得待辦資料
-                var datas = service.Get();
+                var datas = service.GetWeekListByDay();
                 return Request.CreateResponse(HttpStatusCode.OK, datas);
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace TM.WebAPI.Controllers
             }
 
         }
-
+            
  
         // POST: api/Tomato
         public HttpResponseMessage Add(TomatoViewModel models)

@@ -16,11 +16,11 @@ namespace TM.Domain
     {
         public string TomatoID { get; set; }
         public string TodoID { get; set; }
-        public string SpentTime { get; set; }
-        public string CreateTime { get; set; }
-        public string FinishTime { get; set; }
         public bool IsCompleted { get; set; }
         public Nullable<int> PauseCount { get; set; }
+        public Nullable<System.DateTime> SpentTime { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> FinishTime { get; set; }
     
         public virtual Todo Todo { get; set; }
     }

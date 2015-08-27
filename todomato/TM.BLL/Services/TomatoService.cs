@@ -20,6 +20,26 @@ namespace TM.BLL.Services
             db = new GenericRepository<Tomato>();
         }
 
+        /// <summary>
+        /// 取得番茄資訊,以天為單位
+        /// </summary>
+        /// <returns></returns>
+        public List<TomatoListByDayViewModel> GetWeekListByDay()
+        {
+            //取得已經完成的番茄
+            var DbResult = db.Get().Where(x=>x.IsCompleted == true).ToList();
+            var result = new List<TomatoListByDayViewModel>();
+            var tList = new List<Tomato>();
+
+
+            //組裝以天為單位的番茄
+            var tomatoLists = DbResult.GroupBy(u => String.Format("{0:MM/dd/yyyy}", u.FinishTime))
+                                    .Select(g => tList = g.ToList())
+                                    .ToList();
+            tomatoLists.ForEach(x => result.Add(new TomatoListByDayViewModel(x)));
+
+            return result;
+        }
 
         /// <summary>取得所有番茄資料</summary>
         /// <returns></returns>
@@ -87,5 +107,7 @@ namespace TM.BLL.Services
             var Tomato = db.GetByID(TomatoID);
             db.Delete(Tomato);
         }
+
+       
     }
 }

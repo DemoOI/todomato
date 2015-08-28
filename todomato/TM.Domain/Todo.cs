@@ -9,7 +9,6 @@
 
 namespace TM.Domain
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -31,8 +30,7 @@ namespace TM.Domain
         public System.DateTime CreateTime { get; set; }
         public string Updator { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
-
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tomato> Tomatoes { get; set; }
     }

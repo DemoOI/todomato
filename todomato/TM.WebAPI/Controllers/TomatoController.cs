@@ -56,7 +56,7 @@ namespace TM.WebAPI.Controllers
             
  
         // POST: api/Tomato
-        public HttpResponseMessage Add(TomatoViewModel models)
+        public HttpResponseMessage Start(TomatoViewModel models)
         {
             try
             {
@@ -69,12 +69,12 @@ namespace TM.WebAPI.Controllers
             }
         }
 
-        // PUT: api/Tomato/5
-        public HttpResponseMessage Update(TomatoViewModel models)
+        // POST: api/Tomato
+        public HttpResponseMessage Pause(TomatoViewModel models)
         {
             try
             {
-                service.SaveTomato(models);
+                service.PauseTomato(models);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
@@ -83,11 +83,12 @@ namespace TM.WebAPI.Controllers
             }
         }
 
-        // DELETE: api/Tomato/5
-        public HttpResponseMessage Delete(Guid id)
+        // Cancel: api/Tomato/5
+        public HttpResponseMessage Cancel(string id)
         {
             try
             {
+                //將番茄標記為刪除
                 service.Delete(id.ToString());
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

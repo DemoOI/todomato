@@ -5,11 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TodoMatoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--產生期間發現錯誤:
-警告 6013: 資料表/檢視 'TodoMato.dbo.Member' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
-        <EntityType Name="Member">
-          <Property Name="MemberID" Type="nchar" MaxLength="10" />
-        </EntityType>-->
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="TagID" />
@@ -38,10 +33,11 @@
           <Property Name="TomatoID" Type="char" MaxLength="36" Nullable="false" />
           <Property Name="TodoID" Type="char" MaxLength="36" Nullable="false" />
           <Property Name="IsCompleted" Type="bit" Nullable="false" />
-          <Property Name="PauseCount" Type="int" />
+          <Property Name="PauseCount" Type="int" Nullable="false" />
           <Property Name="SpentTime" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="FinishTime" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Tomato_Todo">
           <End Role="Todo" Type="Self.Todo" Multiplicity="1" />
@@ -106,11 +102,12 @@
           <Property Name="TomatoID" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
           <Property Name="TodoID" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="false" />
           <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
-          <Property Name="PauseCount" Type="Int32" />
+          <Property Name="PauseCount" Type="Int32" Nullable="false" />
           <Property Name="SpentTime" Type="DateTime" Precision="3" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="FinishTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Todo" Relationship="TodoMatoModel.FK_Tomato_Todo" FromRole="Tomato" ToRole="Todo" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Tomato_Todo">
           <End Type="TodoMatoModel.Todo" Role="Todo" Multiplicity="1" />
@@ -156,6 +153,7 @@
           <EntitySetMapping Name="Tomatoes">
             <EntityTypeMapping TypeName="TodoMatoModel.Tomato">
               <MappingFragment StoreEntitySet="Tomato">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="SpentTime" ColumnName="SpentTime" />

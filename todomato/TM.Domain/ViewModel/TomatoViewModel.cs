@@ -10,11 +10,12 @@ namespace TM.Domain.ViewModel
     {
         public string TomatoID { get; set; }
         public string TodoID { get; set; }
-        public string SpentTime { get; set; }
-        public string CreateTime { get; set; }
-        public string FinishTime { get; set; }
+        public DateTime SpentTime { get; set; }
+        public DateTime CreateTime { get; set; }
+        public DateTime FinishTime { get; set; }
         public bool IsCompleted { get; set; }
-        public Nullable<int> PauseCount { get; set; }
+        public int PauseCount { get; set; }
+        public bool IsDeleted { get; set; }
 
         public virtual Todo Todo { get; set; }
     }

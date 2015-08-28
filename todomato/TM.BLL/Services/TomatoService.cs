@@ -26,13 +26,13 @@ namespace TM.BLL.Services
         /// <returns></returns>
         public List<TomatoListByDayViewModel> GetWeekListByDay()
         {
-            //取得已經完成的番茄
-            var DbResult = db.Get().Where(x=>x.IsCompleted == true).ToList();
+            //取得一周已經完成的番茄
+            var DbResult = db.Get().Where(x => x.IsCompleted == true).Where(x => x.FinishTime > DateTime.Now.AddDays(-7)).ToList();
             var result = new List<TomatoListByDayViewModel>();
             var tList = new List<Tomato>();
 
 
-            //組裝以天為單位的番茄
+            //組裝以天為單位的番茄list
             var tomatoLists = DbResult.GroupBy(u => String.Format("{0:MM/dd/yyyy}", u.FinishTime))
                                     .Select(g => tList = g.ToList())
                                     .ToList();
@@ -78,34 +78,33 @@ namespace TM.BLL.Services
         public void AddTomato(TomatoViewModel models)
         {
             models.TomatoID = Guid.NewGuid().ToString();
+            models.CreateTime = DateTime.Now;
+            models.IsCompleted = false;
 
             Mapper.CreateMap<TomatoViewModel, Tomato>();
             var Tomato = Mapper.Map<TomatoViewModel, Tomato>(models);
             db.Insert(Tomato);
         }
 
-        /// <summary>儲存番茄資訊</summary>
+        /// <summary>番茄暫停</summary>
         /// <param name="models"></param>
-        public void SaveTomato(TomatoViewModel models)
+        public void PauseTomato(TomatoViewModel models)
         {
-            // 建立Mapping邏輯，只更新
-            Mapper.CreateMap<TomatoViewModel, Tomato>()
-                .ForMember(x => x.TomatoID, y => y.Ignore());
+            var tomato = db.GetByID(models.TomatoID);
+            tomato.PauseCount = tomato.PauseCount + 1;
 
-            Tomato Tomato = db.GetByID(models.TomatoID); 
-   
-            // 只更新ViewModel的部分到Entity  
-            Mapper.Map(models, Tomato);  
-               
-            db.Update(Tomato);
+            db.Update(tomato);
         }
 
-        /// <summary>刪除番茄資訊</summary>
+        /// <summary>標示刪除番茄資訊</summary>
         /// <param name="TomatoID"></param>
         public void Delete(string TomatoID)
         {
-            var Tomato = db.GetByID(TomatoID);
-            db.Delete(Tomato);
+            var tomato = db.GetByID(TomatoID);
+            tomato.IsDeleted = true;
+            tomato.FinishTime = DateTime.Now;
+
+            db.Update(tomato);
         }
 
        

@@ -29,18 +29,16 @@
         private void InitializeComponent()
         {
             this.radDock1 = new Telerik.WinControls.UI.Docking.RadDock();
-            this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
-            this.radSplitContainer2 = new Telerik.WinControls.UI.RadSplitContainer();
-            this.radSplitContainer1 = new Telerik.WinControls.UI.RadSplitContainer();
-            this.toolTabStrip1 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
-            this.toolWindow1 = new Telerik.WinControls.UI.Docking.ToolWindow();
-            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
-            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
             this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
+            this.radSplitContainer1 = new Telerik.WinControls.UI.RadSplitContainer();
+            this.splitPanel1 = new Telerik.WinControls.UI.SplitPanel();
+            this.txt_todo = new Telerik.WinControls.UI.RadTextBox();
+            this.splitPanel2 = new Telerik.WinControls.UI.SplitPanel();
             this.toolTabStrip2 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
             this.toolWindow2 = new Telerik.WinControls.UI.Docking.ToolWindow();
-            this.toolTabStrip3 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
-            this.toolWindow3 = new Telerik.WinControls.UI.Docking.ToolWindow();
+            this.documentContainer1 = new Telerik.WinControls.UI.Docking.DocumentContainer();
+            this.documentTabStrip1 = new Telerik.WinControls.UI.Docking.DocumentTabStrip();
+            this.documentWindow2 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.docTabAlignCombo = new Telerik.WinControls.UI.RadDropDownList();
             this.toolTabAlignCombo = new Telerik.WinControls.UI.RadDropDownList();
@@ -56,22 +54,22 @@
             this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             this.radLabel5 = new Telerik.WinControls.UI.RadLabel();
             this.visualStudio2012DarkTheme1 = new Telerik.WinControls.Themes.VisualStudio2012DarkTheme();
+            this.object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf = new Telerik.WinControls.RootRadElement();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer2)).BeginInit();
-            this.radSplitContainer2.SuspendLayout();
+            this.documentWindow1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).BeginInit();
             this.radSplitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).BeginInit();
-            this.toolTabStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).BeginInit();
+            this.splitPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_todo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip2)).BeginInit();
+            this.toolTabStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).BeginInit();
             this.documentContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).BeginInit();
             this.documentTabStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip2)).BeginInit();
-            this.toolTabStrip2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip3)).BeginInit();
-            this.toolTabStrip3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docTabAlignCombo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toolTabAlignCombo)).BeginInit();
@@ -93,95 +91,130 @@
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.documentWindow2;
-            this.radDock1.Controls.Add(this.radSplitContainer2);
-            this.radDock1.Controls.Add(this.toolTabStrip3);
+            this.radDock1.ActiveWindow = this.documentWindow1;
+            this.radDock1.Controls.Add(this.toolTabStrip2);
+            this.radDock1.Controls.Add(this.documentContainer1);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radDock1.IsCleanUpTarget = true;
             this.radDock1.Location = new System.Drawing.Point(0, 0);
             this.radDock1.MainDocumentContainer = this.documentContainer1;
             this.radDock1.Name = "radDock1";
+            this.radDock1.Padding = new System.Windows.Forms.Padding(0);
             // 
             // 
             // 
             this.radDock1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radDock1.Size = new System.Drawing.Size(745, 724);
+            this.radDock1.Size = new System.Drawing.Size(692, 467);
             this.radDock1.SplitterWidth = 2;
             this.radDock1.TabIndex = 1;
             this.radDock1.TabStop = false;
             this.radDock1.Text = "radDock1";
             this.radDock1.ThemeName = "VisualStudio2012Dark";
             // 
-            // documentWindow2
+            // documentWindow1
             // 
-            this.documentWindow2.Location = new System.Drawing.Point(4, 29);
-            this.documentWindow2.Name = "documentWindow2";
-            this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow2.Size = new System.Drawing.Size(323, 479);
-            this.documentWindow2.Text = "documentWindow2";
-            // 
-            // radSplitContainer2
-            // 
-            this.radSplitContainer2.Controls.Add(this.radSplitContainer1);
-            this.radSplitContainer2.Controls.Add(this.toolTabStrip2);
-            this.radSplitContainer2.IsCleanUpTarget = true;
-            this.radSplitContainer2.Location = new System.Drawing.Point(5, 5);
-            this.radSplitContainer2.Name = "radSplitContainer2";
-            this.radSplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.radSplitContainer2.Padding = new System.Windows.Forms.Padding(5);
-            // 
-            // 
-            // 
-            this.radSplitContainer2.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radSplitContainer2.Size = new System.Drawing.Size(533, 714);
-            this.radSplitContainer2.SplitterWidth = 2;
-            this.radSplitContainer2.TabIndex = 0;
-            this.radSplitContainer2.TabStop = false;
-            this.radSplitContainer2.ThemeName = "VisualStudio2012Dark";
+            this.documentWindow1.Controls.Add(this.radSplitContainer1);
+            this.documentWindow1.Location = new System.Drawing.Point(4, 29);
+            this.documentWindow1.Name = "documentWindow1";
+            this.documentWindow1.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow1.Size = new System.Drawing.Size(609, 434);
+            this.documentWindow1.Tag = "";
+            this.documentWindow1.Text = "事件清單";
             // 
             // radSplitContainer1
             // 
-            this.radSplitContainer1.Controls.Add(this.toolTabStrip1);
-            this.radSplitContainer1.Controls.Add(this.documentContainer1);
-            this.radSplitContainer1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.radSplitContainer1.Controls.Add(this.splitPanel1);
+            this.radSplitContainer1.Controls.Add(this.splitPanel2);
+            this.radSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radSplitContainer1.IsCleanUpTarget = true;
             this.radSplitContainer1.Location = new System.Drawing.Point(0, 0);
             this.radSplitContainer1.Name = "radSplitContainer1";
-            this.radSplitContainer1.Padding = new System.Windows.Forms.Padding(5);
+            this.radSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // 
             // 
             this.radSplitContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.radSplitContainer1.Size = new System.Drawing.Size(533, 512);
+            this.radSplitContainer1.Size = new System.Drawing.Size(609, 434);
             this.radSplitContainer1.SplitterWidth = 2;
             this.radSplitContainer1.TabIndex = 0;
             this.radSplitContainer1.TabStop = false;
+            this.radSplitContainer1.Text = "radSplitContainer1";
             this.radSplitContainer1.ThemeName = "VisualStudio2012Dark";
             // 
-            // toolTabStrip1
+            // splitPanel1
             // 
-            this.toolTabStrip1.CanUpdateChildIndex = true;
-            this.toolTabStrip1.Controls.Add(this.toolWindow1);
-            this.toolTabStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolTabStrip1.Name = "toolTabStrip1";
-            // 
+            this.splitPanel1.Controls.Add(this.txt_todo);
+            this.splitPanel1.Location = new System.Drawing.Point(0, 0);
+            this.splitPanel1.Name = "splitPanel1";
             // 
             // 
-            this.toolTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.toolTabStrip1.SelectedIndex = 0;
-            this.toolTabStrip1.Size = new System.Drawing.Size(200, 512);
-            this.toolTabStrip1.TabIndex = 1;
-            this.toolTabStrip1.TabStop = false;
-            this.toolTabStrip1.ThemeName = "VisualStudio2012Dark";
             // 
-            // toolWindow1
+            this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.splitPanel1.Size = new System.Drawing.Size(609, 60);
+            this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, -0.3611111F);
+            this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, -156);
+            this.splitPanel1.TabIndex = 0;
+            this.splitPanel1.TabStop = false;
+            this.splitPanel1.Text = "splitPanel1";
+            this.splitPanel1.ThemeName = "VisualStudio2012Dark";
             // 
-            this.toolWindow1.Caption = null;
-            this.toolWindow1.Location = new System.Drawing.Point(4, 24);
-            this.toolWindow1.Name = "toolWindow1";
-            this.toolWindow1.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.Docked;
-            this.toolWindow1.Size = new System.Drawing.Size(192, 484);
-            this.toolWindow1.Text = "toolWindow1";
+            // txt_todo
+            // 
+            this.txt_todo.AutoSize = false;
+            this.txt_todo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_todo.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.txt_todo.Location = new System.Drawing.Point(15, 12);
+            this.txt_todo.Multiline = true;
+            this.txt_todo.Name = "txt_todo";
+            this.txt_todo.Size = new System.Drawing.Size(578, 29);
+            this.txt_todo.TabIndex = 1;
+            this.txt_todo.Text = "事件描述";
+            this.txt_todo.ThemeName = "VisualStudio2012Dark";
+            this.txt_todo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_todo_KeyPress);
+            ((Telerik.WinControls.UI.RadTextBoxElement)(this.txt_todo.GetChildAt(0))).Text = "事件描述";
+            ((Telerik.WinControls.UI.RadTextBoxElement)(this.txt_todo.GetChildAt(0))).ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            // 
+            // splitPanel2
+            // 
+            this.splitPanel2.Location = new System.Drawing.Point(0, 62);
+            this.splitPanel2.Name = "splitPanel2";
+            // 
+            // 
+            // 
+            this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.splitPanel2.Size = new System.Drawing.Size(609, 372);
+            this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, 0.3611111F);
+            this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, 156);
+            this.splitPanel2.TabIndex = 1;
+            this.splitPanel2.TabStop = false;
+            this.splitPanel2.ThemeName = "VisualStudio2012Dark";
+            // 
+            // toolTabStrip2
+            // 
+            this.toolTabStrip2.CanUpdateChildIndex = true;
+            this.toolTabStrip2.Controls.Add(this.toolWindow2);
+            this.toolTabStrip2.Location = new System.Drawing.Point(0, 0);
+            this.toolTabStrip2.Name = "toolTabStrip2";
+            // 
+            // 
+            // 
+            this.toolTabStrip2.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.toolTabStrip2.SelectedIndex = 0;
+            this.toolTabStrip2.Size = new System.Drawing.Size(73, 467);
+            this.toolTabStrip2.SizeInfo.AbsoluteSize = new System.Drawing.Size(73, 200);
+            this.toolTabStrip2.SizeInfo.SplitterCorrection = new System.Drawing.Size(-127, 0);
+            this.toolTabStrip2.TabIndex = 1;
+            this.toolTabStrip2.TabStop = false;
+            this.toolTabStrip2.ThemeName = "VisualStudio2012Dark";
+            // 
+            // toolWindow2
+            // 
+            this.toolWindow2.Caption = null;
+            this.toolWindow2.Location = new System.Drawing.Point(4, 24);
+            this.toolWindow2.Name = "toolWindow2";
+            this.toolWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.Docked;
+            this.toolWindow2.Size = new System.Drawing.Size(65, 439);
+            this.toolWindow2.Text = "設定";
             // 
             // documentContainer1
             // 
@@ -191,7 +224,9 @@
             // 
             // 
             this.documentContainer1.RootElement.MinSize = new System.Drawing.Size(25, 25);
+            this.documentContainer1.SizeInfo.AbsoluteSize = new System.Drawing.Size(617, 200);
             this.documentContainer1.SizeInfo.SizeMode = Telerik.WinControls.UI.Docking.SplitPanelSizeMode.Fill;
+            this.documentContainer1.SizeInfo.SplitterCorrection = new System.Drawing.Size(188, 0);
             this.documentContainer1.SplitterWidth = 2;
             this.documentContainer1.TabIndex = 2;
             this.documentContainer1.ThemeName = "VisualStudio2012Dark";
@@ -207,69 +242,21 @@
             // 
             // 
             this.documentTabStrip1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.documentTabStrip1.SelectedIndex = 0;
-            this.documentTabStrip1.Size = new System.Drawing.Size(331, 512);
+            this.documentTabStrip1.SelectedIndex = 1;
+            this.documentTabStrip1.Size = new System.Drawing.Size(617, 467);
+            this.documentTabStrip1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(-0.0707317F, 0F);
+            this.documentTabStrip1.SizeInfo.SplitterCorrection = new System.Drawing.Size(-38, 0);
             this.documentTabStrip1.TabIndex = 0;
             this.documentTabStrip1.TabStop = false;
             this.documentTabStrip1.ThemeName = "VisualStudio2012Dark";
             // 
-            // documentWindow1
+            // documentWindow2
             // 
-            this.documentWindow1.Location = new System.Drawing.Point(5, 25);
-            this.documentWindow1.Name = "documentWindow1";
-            this.documentWindow1.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
-            this.documentWindow1.Size = new System.Drawing.Size(549, 273);
-            this.documentWindow1.Text = "documentWindow1";
-            // 
-            // toolTabStrip2
-            // 
-            this.toolTabStrip2.CanUpdateChildIndex = true;
-            this.toolTabStrip2.Controls.Add(this.toolWindow2);
-            this.toolTabStrip2.Location = new System.Drawing.Point(0, 514);
-            this.toolTabStrip2.Name = "toolTabStrip2";
-            // 
-            // 
-            // 
-            this.toolTabStrip2.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.toolTabStrip2.SelectedIndex = 0;
-            this.toolTabStrip2.Size = new System.Drawing.Size(533, 200);
-            this.toolTabStrip2.TabIndex = 1;
-            this.toolTabStrip2.TabStop = false;
-            this.toolTabStrip2.ThemeName = "VisualStudio2012Dark";
-            // 
-            // toolWindow2
-            // 
-            this.toolWindow2.Caption = null;
-            this.toolWindow2.Location = new System.Drawing.Point(4, 24);
-            this.toolWindow2.Name = "toolWindow2";
-            this.toolWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.Docked;
-            this.toolWindow2.Size = new System.Drawing.Size(525, 172);
-            this.toolWindow2.Text = "toolWindow2";
-            // 
-            // toolTabStrip3
-            // 
-            this.toolTabStrip3.CanUpdateChildIndex = true;
-            this.toolTabStrip3.Controls.Add(this.toolWindow3);
-            this.toolTabStrip3.Location = new System.Drawing.Point(540, 5);
-            this.toolTabStrip3.Name = "toolTabStrip3";
-            // 
-            // 
-            // 
-            this.toolTabStrip3.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.toolTabStrip3.SelectedIndex = 0;
-            this.toolTabStrip3.Size = new System.Drawing.Size(200, 714);
-            this.toolTabStrip3.TabIndex = 1;
-            this.toolTabStrip3.TabStop = false;
-            this.toolTabStrip3.ThemeName = "VisualStudio2012Dark";
-            // 
-            // toolWindow3
-            // 
-            this.toolWindow3.Caption = null;
-            this.toolWindow3.Location = new System.Drawing.Point(4, 24);
-            this.toolWindow3.Name = "toolWindow3";
-            this.toolWindow3.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.Docked;
-            this.toolWindow3.Size = new System.Drawing.Size(192, 686);
-            this.toolWindow3.Text = "toolWindow3";
+            this.documentWindow2.Location = new System.Drawing.Point(4, 29);
+            this.documentWindow2.Name = "documentWindow2";
+            this.documentWindow2.PreviousDockState = Telerik.WinControls.UI.Docking.DockState.TabbedDocument;
+            this.documentWindow2.Size = new System.Drawing.Size(609, 434);
+            this.documentWindow2.Text = "執行番茄";
             // 
             // radLabel1
             // 
@@ -447,34 +434,41 @@
             this.radLabel5.TabIndex = 1;
             this.radLabel5.Text = "Alignment:";
             // 
+            // object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf
+            // 
+            this.object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf.Name = "object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf";
+            this.object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf.StretchHorizontally = true;
+            this.object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf.StretchVertically = true;
+            this.object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf.Visibility = Telerik.WinControls.ElementVisibility.Visible;
+            // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(745, 724);
+            this.ClientSize = new System.Drawing.Size(692, 467);
             this.Controls.Add(this.radDock1);
             this.Name = "EventForm";
             // 
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
+            this.Text = "番茄管理";
             this.ThemeName = "VisualStudio2012Dark";
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).EndInit();
             this.radDock1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer2)).EndInit();
-            this.radSplitContainer2.ResumeLayout(false);
+            this.documentWindow1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radSplitContainer1)).EndInit();
             this.radSplitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).EndInit();
-            this.toolTabStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).EndInit();
+            this.splitPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txt_todo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip2)).EndInit();
+            this.toolTabStrip2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentContainer1)).EndInit();
             this.documentContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip1)).EndInit();
             this.documentTabStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip2)).EndInit();
-            this.toolTabStrip2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip3)).EndInit();
-            this.toolTabStrip3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docTabAlignCombo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toolTabAlignCombo)).EndInit();
@@ -508,16 +502,8 @@
         private Telerik.WinControls.UI.RadCheckBox docTabsVisibleCheck;
         private Telerik.WinControls.UI.RadDropDownList toolTabAlignCombo;
         private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow2;
-        private Telerik.WinControls.UI.RadSplitContainer radSplitContainer2;
-        private Telerik.WinControls.UI.RadSplitContainer radSplitContainer1;
-        private Telerik.WinControls.UI.Docking.ToolTabStrip toolTabStrip1;
-        private Telerik.WinControls.UI.Docking.ToolWindow toolWindow1;
         private Telerik.WinControls.UI.Docking.DocumentTabStrip documentTabStrip1;
         private Telerik.WinControls.UI.Docking.DocumentWindow documentWindow1;
-        private Telerik.WinControls.UI.Docking.ToolTabStrip toolTabStrip2;
-        private Telerik.WinControls.UI.Docking.ToolWindow toolWindow2;
-        private Telerik.WinControls.UI.Docking.ToolTabStrip toolTabStrip3;
-        private Telerik.WinControls.UI.Docking.ToolWindow toolWindow3;
         private Telerik.WinControls.UI.RadGroupBox radGroupBox1;
         private Telerik.WinControls.UI.RadDropDownList docTextOrientationCombo;
         private Telerik.WinControls.UI.RadLabel radLabel3;
@@ -528,5 +514,12 @@
         private Telerik.WinControls.UI.RadCheckBox docCloseButtonCheck;
         private Telerik.WinControls.UI.RadCheckBox toolCloseButtonCheck;
         private Telerik.WinControls.Themes.VisualStudio2012DarkTheme visualStudio2012DarkTheme1;
+        private Telerik.WinControls.UI.Docking.ToolTabStrip toolTabStrip2;
+        private Telerik.WinControls.UI.Docking.ToolWindow toolWindow2;
+        private Telerik.WinControls.UI.RadSplitContainer radSplitContainer1;
+        private Telerik.WinControls.UI.SplitPanel splitPanel1;
+        private Telerik.WinControls.UI.RadTextBox txt_todo;
+        private Telerik.WinControls.UI.SplitPanel splitPanel2;
+        private Telerik.WinControls.RootRadElement object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf;
     }
 }

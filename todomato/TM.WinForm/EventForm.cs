@@ -12,10 +12,36 @@ namespace TM.WinForm
 {
     public partial class EventForm : Telerik.WinControls.UI.RadForm
     {
+        private int label_fontsize = 11;
+        private string label_fontfamily = "Segoe UI";
+
         public EventForm()
         {
             InitializeComponent();
+            //事件初始化
+            EventInit();
+
+            this.ActiveControl = null; 
         }
+
+        private void EventInit()
+        {
+            //txt_todo.Enter += txt_todo_Enter;
+            txt_todo.LostFocus += txt_todo_LostFocus;
+            txt_todo.GotFocus += txt_todo_GotFocus;
+
+            this.docTabAlignCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(docTabAlignCombo_SelectedIndexChanged);
+            this.toolTabAlignCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.toolTabAlignCombo_SelectedIndexChanged);
+            this.docTabsVisibleCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.docTabsVisibleCheck_ToggleStateChanged);
+            this.toolTabsVisibleCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.toolTabsVisibleCheck_ToggleStateChanged);
+            this.docCloseButtonCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.docCloseButtonCheck_ToggleStateChanged);
+            this.docTextOrientationCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.docTextOrientationCombo_SelectedIndexChanged);
+            this.toolCloseButtonCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.toolCloseButtonCheck_ToggleStateChanged);
+            this.toolTextOrientationCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.toolTextOrientationCombo_SelectedIndexChanged);
+
+        }
+
+
 
 
         private void EventForm_Shown_1(object sender, EventArgs e)
@@ -30,13 +56,13 @@ namespace TM.WinForm
             //this.FormElement.TitleBar.MinimizeButton.Enabled = false;
 
             //新增子視窗
-            this.IsMdiContainer = true;
+            //this.IsMdiContainer = true;
 
-            RadForm form = new RadForm();
-            form.Text = "MDI Child 1";
-            form.MdiParent = this;
-            form.ThemeName = "Desert";
-            form.Show();
+            //RadForm form = new RadForm();
+            //form.Text = "MDI Child 1";
+            //form.MdiParent = this;
+            //form.ThemeName = "Desert";
+            //form.Show();
 
             //form = new RadForm();
             //form.Text = "MDI Child 2";
@@ -52,14 +78,7 @@ namespace TM.WinForm
 
             this.docTabsVisibleCheck.Checked = this.radDock1.DocumentTabsVisible; this.toolTabsVisibleCheck.Checked = this.radDock1.ToolTabsVisible; this.docCloseButtonCheck.Checked = this.radDock1.ShowDocumentCloseButton; this.toolCloseButtonCheck.Checked = this.radDock1.ShowToolCloseButton; this.FillTabStripAlignment(this.docTabAlignCombo, this.radDock1.DocumentTabsAlignment); this.FillTabStripAlignment(this.toolTabAlignCombo, this.radDock1.ToolTabsAlignment); this.FillTabStripTextOrientation(this.docTextOrientationCombo, this.radDock1.DocumentTabsTextOrientation); this.FillTabStripTextOrientation(this.toolTextOrientationCombo, this.radDock1.ToolTabsTextOrientation);
 
-            this.docTabAlignCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(docTabAlignCombo_SelectedIndexChanged);
-            this.toolTabAlignCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.toolTabAlignCombo_SelectedIndexChanged);
-            this.docTabsVisibleCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.docTabsVisibleCheck_ToggleStateChanged);
-            this.toolTabsVisibleCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.toolTabsVisibleCheck_ToggleStateChanged);
-            this.docCloseButtonCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.docCloseButtonCheck_ToggleStateChanged);
-            this.docTextOrientationCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.docTextOrientationCombo_SelectedIndexChanged);
-            this.toolCloseButtonCheck.ToggleStateChanged += new Telerik.WinControls.UI.StateChangedEventHandler(this.toolCloseButtonCheck_ToggleStateChanged);
-            this.toolTextOrientationCombo.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.toolTextOrientationCombo_SelectedIndexChanged);
+            this.ActiveControl = null; 
         } 
 
         private void EventForm_Load(object sender, EventArgs e)
@@ -68,6 +87,8 @@ namespace TM.WinForm
             RadButtonElement buttonElement = new RadButtonElement();
             buttonElement.Text = "TitleBar Button";
             this.FormElement.TitleBar.Children[2].Children[0].Children.Insert(0, buttonElement);
+
+            this.ActiveControl = null; 
         }
 
         #region Implementation
@@ -153,6 +174,91 @@ namespace TM.WinForm
 
         #region Event Handlers
 
+        private void txt_todo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(13))
+            {
+                if (string.IsNullOrEmpty(txt_todo.Text) || txt_todo.Text == "事件描述"  ) return;
+                
+                var lb_count = 0;
+                foreach (var c in splitPanel2.Controls)
+                {
+                    if (c is Label) lb_count += 1;
+                }
+
+                var location_heigh = 25 * lb_count;
+                var location_width = 35;
+
+                var value = txt_todo.Text;
+                //var panel = new Panel();
+                var label = new Label();
+                var checkbox = new RadCheckBox();
+                
+                //執行新增待辦事件
+                label.Text = value;
+                label.Font = new Font(label_fontfamily, label_fontsize);
+                label.Location = new Point(location_width, location_heigh);
+                checkbox.Location = new Point(location_width - 22, location_heigh + 4 );
+                checkbox.CheckStateChanged += checkbox_CheckStateChanged;
+                //panel.Location = new Point(location_width, location_heigh);
+
+
+                //controls加到splitPanel2
+                //panel.Controls.Add(label);
+                //panel.Controls.Add(checkbox);
+                splitPanel2.Controls.Add(label);
+                splitPanel2.Controls.Add(checkbox);
+
+                //完成後狀態
+                txt_todo.Text = "事件描述";
+                this.ActiveControl = null;  
+            }
+        }
+
+        void checkbox_CheckStateChanged(object sender, EventArgs e)
+        {
+            //TODO 完成事件流程 + 劃掉該事件
+            RadCheckBox ck = sender as RadCheckBox;
+            var panel = ck.Parent;
+            foreach (var c in panel.Controls)
+            {
+                if (c is Label) 
+                {
+                    ((Label)c).Font = new Font(label_fontfamily, label_fontsize, FontStyle.Strikeout);
+                }
+            }
+
+        }
+
+        private void toolTabsVisibleCheck_ToggleStateChanged(object sender, StateChangedEventArgs args)
+        {
+            this.radDock1.ToolTabsVisible = this.toolTabsVisibleCheck.Checked;
+        }
+
+        void txt_todo_LostFocus(object sender, EventArgs e)
+        {
+            if (txt_todo.Text == "") txt_todo.Text = "事件描述";
+        }
+
+        void txt_todo_GotFocus(object sender, EventArgs e)
+        {
+            RadTextBox currentTextbox = sender as RadTextBox;
+            if (currentTextbox.Text == "事件描述")
+            {
+                currentTextbox.Text = "";
+            }
+            //this.ActiveControl = null; 
+        }
+
+        private void txt_todo_Enter(object sender, EventArgs e)
+        {
+            RadTextBox currentTextbox = sender as RadTextBox;
+            if (currentTextbox.Text == "事件描述")
+            {
+                currentTextbox.Text = "";
+            }
+        }
+
         private void docTextOrientationCombo_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
             TabStripTextOrientation? orientation = this.GetTabStripTextOrientation(this.docTextOrientationCombo);
@@ -204,12 +310,12 @@ namespace TM.WinForm
             this.radDock1.DocumentTabsVisible = this.docTabsVisibleCheck.Checked;
         }
 
-        private void toolTabsVisibleCheck_ToggleStateChanged(object sender, StateChangedEventArgs args)
-        {
-            this.radDock1.ToolTabsVisible = this.toolTabsVisibleCheck.Checked;
-        }
-
+      
         #endregion
+
+        
+
+
 
     }
 }

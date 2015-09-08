@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
+using Telerik.WinControls.UI.Docking;
 
 namespace TM.WinForm
 {
@@ -20,6 +22,7 @@ namespace TM.WinForm
             InitializeComponent();
             //事件初始化
             EventInit();
+
 
             this.ActiveControl = null; 
         }
@@ -180,34 +183,40 @@ namespace TM.WinForm
             {
                 if (string.IsNullOrEmpty(txt_todo.Text) || txt_todo.Text == "事件描述"  ) return;
                 
+                //變數設定
                 var lb_count = 0;
                 foreach (var c in splitPanel2.Controls)
                 {
                     if (c is Label) lb_count += 1;
                 }
-
                 var location_heigh = 25 * lb_count;
                 var location_width = 35;
-
                 var value = txt_todo.Text;
                 //var panel = new Panel();
                 var label = new Label();
                 var checkbox = new RadCheckBox();
-                
+                var startButton = new RadButton();
+                var id = Guid.NewGuid().ToString();
+
                 //執行新增待辦事件
+                label.Name = "lb_" + id;
                 label.Text = value;
                 label.Font = new Font(label_fontfamily, label_fontsize);
                 label.Location = new Point(location_width, location_heigh);
+                checkbox.Name = id;
                 checkbox.Location = new Point(location_width - 22, location_heigh + 4 );
                 checkbox.CheckStateChanged += checkbox_CheckStateChanged;
-                //panel.Location = new Point(location_width, location_heigh);
+                startButton.Name = "btn_" + id;
+                startButton.Location = new Point(location_width + 240, location_heigh + 4);
+                startButton.Text = "啟用";
+                startButton.Width = 43;
+                startButton.Height = 18;
+                startButton.Click += startButton_Click;
 
-
-                //controls加到splitPanel2
-                //panel.Controls.Add(label);
-                //panel.Controls.Add(checkbox);
                 splitPanel2.Controls.Add(label);
                 splitPanel2.Controls.Add(checkbox);
+                splitPanel2.Controls.Add(startButton);
+                //TODO 資料存到資料庫
 
                 //完成後狀態
                 txt_todo.Text = "事件描述";
@@ -215,18 +224,40 @@ namespace TM.WinForm
             }
         }
 
+        void startButton_Click(object sender, EventArgs e)
+        {
+            RadButton btn = sender as RadButton;
+            var lableID = btn.Name.Replace("btn_", "lb_");
+            var title = btn.Parent.Controls[lableID].Text;
+
+            //TODO 啟用記時器
+
+        }
+
         void checkbox_CheckStateChanged(object sender, EventArgs e)
         {
-            //TODO 完成事件流程 + 劃掉該事件
+            // 完成事件流程 + 劃掉該事件
             RadCheckBox ck = sender as RadCheckBox;
-            var panel = ck.Parent;
-            foreach (var c in panel.Controls)
+            var lableID = "lb_" + ck.Name;
+            Control currentLabel = ck.Parent.Controls[lableID];
+
+            if (ck.Checked)
+	        {
+                currentLabel.Font = new Font(label_fontfamily, label_fontsize, FontStyle.Strikeout);
+                //TODO 儲存完成事件
+	        }
+            else
             {
-                if (c is Label) 
-                {
-                    ((Label)c).Font = new Font(label_fontfamily, label_fontsize, FontStyle.Strikeout);
-                }
+                currentLabel.Font = new Font(label_fontfamily, label_fontsize);
+                //TODO 取消事見
+
             }
+
+            
+
+
+
+
 
         }
 

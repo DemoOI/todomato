@@ -231,7 +231,7 @@ namespace TM.WinForm
             var title = btn.Parent.Controls[lableID].Text;
 
             //TODO 啟用記時器
-
+            timer1.Enabled = true;
         }
 
         void checkbox_CheckStateChanged(object sender, EventArgs e)
@@ -341,8 +341,33 @@ namespace TM.WinForm
             this.radDock1.DocumentTabsVisible = this.docTabsVisibleCheck.Checked;
         }
 
-      
+
+        //計時器 每格時間點做什麼事情
+        int ticks = 0;
+        double countTime = 1501.0;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ticks++;
+            radProgressBar1.Value1 = ticks;
+
+            //設置倒數時間
+            countTime--;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(countTime); 
+            var timerText = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds); 
+
+            radProgressBar1.Text = timerText;
+            if (ticks == 1501)
+            {
+                //timer 結束
+                timer1.Enabled = false;
+                ticks = 0;
+
+                //TODO 實作番茄紀錄list
+            }
+        }
         #endregion
+
+      
 
         
 

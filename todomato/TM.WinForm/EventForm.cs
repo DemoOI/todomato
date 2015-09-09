@@ -307,17 +307,29 @@ namespace TM.WinForm
                 var lb_count = 0;
                 foreach (var c in splitPanel5.Controls)
                 {
-                    if (c is Label) lb_count += 1;
+                    if (c is Label || c is RadLabel) lb_count += 1;
                 }
                 var location_heigh = 25 * lb_count;
                 var location_width = 35;
+                var today = DateTime.Now.ToString("M月d日");
 
                 //當日第一次新增:加入日期
                 var dateLabelList = GetAllControlsRecusrvive<RadLabel>(splitPanel5);
-                if (dateLabelList.Count == 0)
+               
+                bool hasToday = false;
+                foreach (var dateLabel in dateLabelList)
+                {
+                    // validate 當日
+                    if (dateLabel.Text.IndexOf(today) != -1)
+                    {
+                        hasToday = true;
+                    }
+                }
+
+                if (dateLabelList.Count == 0 || hasToday == false)
                 {
                     var dateLabel = new RadLabel();
-                    dateLabel.Text = DateTime.Now.ToString("M月d日");
+                    dateLabel.Text = today;
                     dateLabel.ForeColor = System.Drawing.Color.Gray;
                     dateLabel.Font = new Font(label_fontfamily, label_fontsize);
                     dateLabel.Location = new Point(location_width, location_heigh);
@@ -326,14 +338,6 @@ namespace TM.WinForm
                     //更新
                     lb_count++;
                     location_heigh = 25 * lb_count;
-                }
-                foreach (var dateLabel in GetAllControlsRecusrvive<RadLabel>(this))
-                {
-                    // ...
-                    if (true)
-                    {
-
-                    }
                 }
                
                 var value = titleOfCurrentEvent;

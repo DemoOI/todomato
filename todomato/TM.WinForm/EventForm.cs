@@ -14,8 +14,10 @@ namespace TM.WinForm
 {
     public partial class EventForm : Telerik.WinControls.UI.RadForm
     {
-        private int label_fontsize = 11;
-        private string label_fontfamily = "Segoe UI";
+        private int label_fontsize = 10;
+        private string label_fontfamily = "cursive";
+        private string titleOfCurrentEvent;
+        private string labelIdOfCurrentEvent;
 
         public EventForm()
         {
@@ -81,7 +83,7 @@ namespace TM.WinForm
 
             this.docTabsVisibleCheck.Checked = this.radDock1.DocumentTabsVisible; this.toolTabsVisibleCheck.Checked = this.radDock1.ToolTabsVisible; this.docCloseButtonCheck.Checked = this.radDock1.ShowDocumentCloseButton; this.toolCloseButtonCheck.Checked = this.radDock1.ShowToolCloseButton; this.FillTabStripAlignment(this.docTabAlignCombo, this.radDock1.DocumentTabsAlignment); this.FillTabStripAlignment(this.toolTabAlignCombo, this.radDock1.ToolTabsAlignment); this.FillTabStripTextOrientation(this.docTextOrientationCombo, this.radDock1.DocumentTabsTextOrientation); this.FillTabStripTextOrientation(this.toolTextOrientationCombo, this.radDock1.ToolTabsTextOrientation);
 
-            this.ActiveControl = null; 
+            //this.ActiveControl = null; 
         } 
 
         private void EventForm_Load(object sender, EventArgs e)
@@ -91,7 +93,8 @@ namespace TM.WinForm
             buttonElement.Text = "TitleBar Button";
             this.FormElement.TitleBar.Children[2].Children[0].Children.Insert(0, buttonElement);
 
-            this.ActiveControl = null; 
+            //cancel focus
+            //this.ActiveControl = null; 
         }
 
         #region Implementation
@@ -177,12 +180,13 @@ namespace TM.WinForm
 
         #region Event Handlers
 
+        #region todo事件
         private void txt_todo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(13))
             {
-                if (string.IsNullOrEmpty(txt_todo.Text) || txt_todo.Text == "事件描述"  ) return;
-                
+                if (string.IsNullOrEmpty(txt_todo.Text) || txt_todo.Text == "事件描述") return;
+
                 //變數設定
                 var lb_count = 0;
                 foreach (var c in splitPanel2.Controls)
@@ -201,13 +205,16 @@ namespace TM.WinForm
                 //執行新增待辦事件
                 label.Name = "lb_" + id;
                 label.Text = value;
+                label.AutoSize = true;
                 label.Font = new Font(label_fontfamily, label_fontsize);
                 label.Location = new Point(location_width, location_heigh);
+
                 checkbox.Name = id;
-                checkbox.Location = new Point(location_width - 22, location_heigh + 4 );
+                checkbox.Location = new Point(location_width - 22, location_heigh + 4);
                 checkbox.CheckStateChanged += checkbox_CheckStateChanged;
+
                 startButton.Name = "btn_" + id;
-                startButton.Location = new Point(location_width + 240, location_heigh + 4);
+                startButton.Location = new Point(location_width + 220, location_heigh + 4);
                 startButton.Text = "啟用";
                 startButton.Width = 43;
                 startButton.Height = 18;
@@ -219,11 +226,42 @@ namespace TM.WinForm
                 //TODO 資料存到資料庫
 
                 //完成後狀態
-                txt_todo.Text = "事件描述";
-                this.ActiveControl = null;  
+                txt_todo.Text = "";
+                //this.ActiveControl = null;  
             }
         }
 
+        void checkbox_CheckStateChanged(object sender, EventArgs e)
+        {
+            // 完成事件流程 + 劃掉該事件
+            RadCheckBox ck = sender as RadCheckBox;
+            var lableID = "lb_" + ck.Name;
+            var btnID = "btn_" + ck.Name;
+            Control currentLabel = ck.Parent.Controls[lableID];
+            Control currentbtn = ck.Parent.Controls[btnID];
+
+            if (ck.Checked)
+            {
+                currentLabel.Font = new Font(label_fontfamily, label_fontsize, FontStyle.Strikeout);
+                currentbtn.Visible = false;
+                //TODO 儲存完成事件
+
+            }
+            else
+            {
+                currentLabel.Font = new Font(label_fontfamily, label_fontsize);
+                currentbtn.Visible = true;
+                //TODO 取消事見
+
+            }
+
+
+        }
+        #endregion
+       
+
+        #region 計時器相關
+        //起用計時
         void startButton_Click(object sender, EventArgs e)
         {
             RadButton btn = sender as RadButton;
@@ -232,34 +270,146 @@ namespace TM.WinForm
 
             //TODO 啟用記時器
             timer1.Enabled = true;
+            btn_cancel.Enabled = true;
+            btn_pause.Enabled = true;
+            titleOfCurrentEvent = title;
+            labelIdOfCurrentEvent = lableID;
         }
 
-        void checkbox_CheckStateChanged(object sender, EventArgs e)
+        //計時器 每格時間點做什麼事情
+        int ticks = 0;
+        double countTime = 1501.0;
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            // 完成事件流程 + 劃掉該事件
-            RadCheckBox ck = sender as RadCheckBox;
-            var lableID = "lb_" + ck.Name;
-            Control currentLabel = ck.Parent.Controls[lableID];
+            ticks++;
+            radProgressBar1.Value1 = ticks;
 
-            if (ck.Checked)
-	        {
-                currentLabel.Font = new Font(label_fontfamily, label_fontsize, FontStyle.Strikeout);
-                //TODO 儲存完成事件
-	        }
+            //設置倒數時間
+            countTime--;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(countTime);
+            var timerText = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
+
+            radProgressBar1.Text = timerText;
+            if (ticks == 2)
+            {
+                //timer 結束
+                timer1.Enabled = false;
+                ticks = 0;
+                radProgressBar1.Value1 = 0;
+                radProgressBar1.Text = "番茄計時器";
+
+                //TODO 實作番茄紀錄list
+
+                //TODO UI 事件番茄數+1
+                //titleOfCurrentEvent
+
+                //TODO UI 實作番茄紀錄list
+                var lb_count = 0;
+                foreach (var c in splitPanel5.Controls)
+                {
+                    if (c is Label) lb_count += 1;
+                }
+                var location_heigh = 25 * lb_count;
+                var location_width = 35;
+
+                //當日第一次新增:加入日期
+                var dateLabelList = GetAllControlsRecusrvive<RadLabel>(splitPanel5);
+                if (dateLabelList.Count == 0)
+                {
+                    var dateLabel = new RadLabel();
+                    dateLabel.Text = DateTime.Now.ToString("M月d日");
+                    dateLabel.ForeColor = System.Drawing.Color.Gray;
+                    dateLabel.Font = new Font(label_fontfamily, label_fontsize);
+                    dateLabel.Location = new Point(location_width, location_heigh);
+                    splitPanel5.Controls.Add(dateLabel);
+
+                    //更新
+                    lb_count++;
+                    location_heigh = 25 * lb_count;
+                }
+                foreach (var dateLabel in GetAllControlsRecusrvive<RadLabel>(this))
+                {
+                    // ...
+                    if (true)
+                    {
+
+                    }
+                }
+               
+                var value = titleOfCurrentEvent;
+                var startTime = DateTime.Now.ToString("HH:mm");
+                var endTime = DateTime.Now.AddMinutes(-25).ToString("HH:mm");
+
+                var label = new Label();
+                label.Font = new Font(label_fontfamily, label_fontsize);
+                label.AutoSize = true;
+                label.Text = string.Format("{0}-{1}   {2}",startTime, endTime, value);
+                label.Font = new Font(label_fontfamily, label_fontsize);
+                label.Location = new Point(location_width, location_heigh);
+                label.BackColor = Color.Transparent;
+               
+                splitPanel5.Controls.Add(label);
+
+                //提醒休息
+                RadMessageBox.SetThemeName("Desert");
+                RadMessageBox.Instance.MinimumSize = new System.Drawing.Size(100, 100);
+                DialogResult result = Telerik.WinControls.RadMessageBox.Show("辛苦了，請讓眼睛休息5分唷^_^", "", MessageBoxButtons.OK, RadMessageIcon.Info);
+            }
+        }
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+
+            RadMessageBox.SetThemeName("Desert");
+            RadMessageBox.Instance.MinimumSize = new System.Drawing.Size(100, 100);
+            DialogResult result = Telerik.WinControls.RadMessageBox.Show("確定取消計時?", "", MessageBoxButtons.YesNo, RadMessageIcon.Info);
+
+            if (result == DialogResult.Yes)
+            {
+                //TODO 事件取消
+                timer1.Enabled = false;
+                ticks = 0;
+                radProgressBar1.Value1 = 0;
+                radProgressBar1.Text = "番茄計時器";
+                btn_pause.Enabled = false;
+                btn_cancel.Enabled = false;
+            }
+            else if (result == DialogResult.No)
+            {
+                //...
+            }
             else
             {
-                currentLabel.Font = new Font(label_fontfamily, label_fontsize);
-                //TODO 取消事見
-
-            }
+                //...
+            } 
 
             
 
+        }
 
+        private void btn_pause_Click(object sender, EventArgs e)
+        {
+            if (timer1.Enabled)
+            {
+                //TODO 事件暫停
+                timer1.Stop();
+                btn_pause.Text = "繼續";
+            }
+            else
+            {
+                //事件恢復
+                timer1.Start();
+                btn_pause.Text = "暫停";
+            }
+            
 
-
+            
 
         }
+        #endregion
+    
+
+
 
         private void toolTabsVisibleCheck_ToggleStateChanged(object sender, StateChangedEventArgs args)
         {
@@ -341,31 +491,27 @@ namespace TM.WinForm
             this.radDock1.DocumentTabsVisible = this.docTabsVisibleCheck.Checked;
         }
 
-
-        //計時器 每格時間點做什麼事情
-        int ticks = 0;
-        double countTime = 1501.0;
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            ticks++;
-            radProgressBar1.Value1 = ticks;
-
-            //設置倒數時間
-            countTime--;
-            TimeSpan timeSpan = TimeSpan.FromSeconds(countTime); 
-            var timerText = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds); 
-
-            radProgressBar1.Text = timerText;
-            if (ticks == 1501)
-            {
-                //timer 結束
-                timer1.Enabled = false;
-                ticks = 0;
-
-                //TODO 實作番茄紀錄list
-            }
-        }
         #endregion
+
+        public static IList<T> GetAllControlsRecusrvive<T>(Control control) where T : Control
+        {
+            var rtn = new List<T>();
+            foreach (Control item in control.Controls)
+            {
+                var ctr = item as T;
+                if (ctr != null)
+                {
+                    rtn.Add(ctr);
+                }
+                else
+                {
+                    rtn.AddRange(GetAllControlsRecusrvive<T>(item));
+                }
+
+            }
+            return rtn;
+        }
+
 
       
 

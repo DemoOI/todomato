@@ -51,6 +51,7 @@
             this.radDock3 = new Telerik.WinControls.UI.Docking.RadDock();
             this.documentContainer3 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.splitPanel4 = new Telerik.WinControls.UI.SplitPanel();
+            this.radProgressBar1 = new Telerik.WinControls.UI.RadProgressBar();
             this.splitPanel5 = new Telerik.WinControls.UI.SplitPanel();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.docTabAlignCombo = new Telerik.WinControls.UI.RadDropDownList();
@@ -69,8 +70,10 @@
             this.visualStudio2012DarkTheme1 = new Telerik.WinControls.Themes.VisualStudio2012DarkTheme();
             this.object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf = new Telerik.WinControls.RootRadElement();
             this.toolTabStrip1 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
-            this.radProgressBar1 = new Telerik.WinControls.UI.RadProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btn_cancel = new Telerik.WinControls.UI.RadButton();
+            this.btn_pause = new Telerik.WinControls.UI.RadButton();
+            this.visualStudio2012DarkTheme2 = new Telerik.WinControls.Themes.VisualStudio2012DarkTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
             this.toolWindow2.SuspendLayout();
@@ -103,6 +106,7 @@
             this.documentContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel4)).BeginInit();
             this.splitPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.docTabAlignCombo)).BeginInit();
@@ -121,7 +125,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radProgressBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_pause)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -298,9 +303,9 @@
             // 
             // 
             this.splitPanel1.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel1.Size = new System.Drawing.Size(320, 108);
-            this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, -0.25F);
-            this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, -108);
+            this.splitPanel1.Size = new System.Drawing.Size(320, 117);
+            this.splitPanel1.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, -0.2291667F);
+            this.splitPanel1.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, -99);
             this.splitPanel1.TabIndex = 0;
             this.splitPanel1.TabStop = false;
             this.splitPanel1.Text = "splitPanel1";
@@ -362,15 +367,16 @@
             // 
             // splitPanel2
             // 
-            this.splitPanel2.Location = new System.Drawing.Point(0, 110);
+            this.splitPanel2.AutoScroll = true;
+            this.splitPanel2.Location = new System.Drawing.Point(0, 119);
             this.splitPanel2.Name = "splitPanel2";
             // 
             // 
             // 
             this.splitPanel2.RootElement.MinSize = new System.Drawing.Size(25, 25);
-            this.splitPanel2.Size = new System.Drawing.Size(320, 324);
-            this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, 0.25F);
-            this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, 108);
+            this.splitPanel2.Size = new System.Drawing.Size(320, 315);
+            this.splitPanel2.SizeInfo.AutoSizeScale = new System.Drawing.SizeF(0F, 0.2291667F);
+            this.splitPanel2.SizeInfo.SplitterCorrection = new System.Drawing.Size(0, 99);
             this.splitPanel2.TabIndex = 1;
             this.splitPanel2.TabStop = false;
             this.splitPanel2.ThemeName = "VisualStudio2012Dark";
@@ -440,6 +446,8 @@
             // 
             // splitPanel4
             // 
+            this.splitPanel4.Controls.Add(this.btn_pause);
+            this.splitPanel4.Controls.Add(this.btn_cancel);
             this.splitPanel4.Controls.Add(this.radProgressBar1);
             this.splitPanel4.Location = new System.Drawing.Point(0, 0);
             this.splitPanel4.Name = "splitPanel4";
@@ -455,8 +463,18 @@
             this.splitPanel4.Text = "splitPanel4";
             this.splitPanel4.ThemeName = "VisualStudio2012Dark";
             // 
+            // radProgressBar1
+            // 
+            this.radProgressBar1.Location = new System.Drawing.Point(18, 15);
+            this.radProgressBar1.Maximum = 1500;
+            this.radProgressBar1.Name = "radProgressBar1";
+            this.radProgressBar1.Size = new System.Drawing.Size(275, 26);
+            this.radProgressBar1.TabIndex = 0;
+            this.radProgressBar1.Text = "番茄計時器";
+            // 
             // splitPanel5
             // 
+            this.splitPanel5.AutoScroll = true;
             this.splitPanel5.Location = new System.Drawing.Point(0, 56);
             this.splitPanel5.Name = "splitPanel5";
             // 
@@ -668,19 +686,30 @@
             this.toolTabStrip1.TabStop = false;
             this.toolTabStrip1.ThemeName = "VisualStudio2012Dark";
             // 
-            // radProgressBar1
-            // 
-            this.radProgressBar1.Location = new System.Drawing.Point(18, 15);
-            this.radProgressBar1.Maximum = 1500;
-            this.radProgressBar1.Name = "radProgressBar1";
-            this.radProgressBar1.Size = new System.Drawing.Size(331, 26);
-            this.radProgressBar1.TabIndex = 0;
-            this.radProgressBar1.Text = "番茄計時器";
-            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btn_cancel
+            // 
+            this.btn_cancel.Enabled = false;
+            this.btn_cancel.Location = new System.Drawing.Point(334, 15);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(33, 26);
+            this.btn_cancel.TabIndex = 1;
+            this.btn_cancel.Text = "取消";
+            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
+            // 
+            // btn_pause
+            // 
+            this.btn_pause.Enabled = false;
+            this.btn_pause.Location = new System.Drawing.Point(298, 15);
+            this.btn_pause.Name = "btn_pause";
+            this.btn_pause.Size = new System.Drawing.Size(33, 26);
+            this.btn_pause.TabIndex = 2;
+            this.btn_pause.Text = "暫停";
+            this.btn_pause.Click += new System.EventHandler(this.btn_pause_Click);
             // 
             // EventForm
             // 
@@ -728,6 +757,7 @@
             this.documentContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel4)).EndInit();
             this.splitPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.docTabAlignCombo)).EndInit();
@@ -748,7 +778,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radProgressBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_pause)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -799,5 +830,8 @@
         private Telerik.WinControls.UI.SplitPanel splitPanel5;
         private Telerik.WinControls.UI.RadProgressBar radProgressBar1;
         private System.Windows.Forms.Timer timer1;
+        private Telerik.WinControls.UI.RadButton btn_cancel;
+        private Telerik.WinControls.UI.RadButton btn_pause;
+        private Telerik.WinControls.Themes.VisualStudio2012DarkTheme visualStudio2012DarkTheme2;
     }
 }

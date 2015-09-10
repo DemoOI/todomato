@@ -62,7 +62,7 @@ namespace TM.WebAPI.Controllers
         {
             try
             {
-                var data = service.Get(TodoID.ToString());
+                var data = service.GetById(TodoID.ToString());
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace TM.WebAPI.Controllers
         {
             try
             {
-                service.SaveTodo(models);
+                service.UpdateTodo(models);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)

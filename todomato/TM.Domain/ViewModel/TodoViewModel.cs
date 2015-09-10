@@ -18,5 +18,7 @@ namespace TM.Domain.ViewModel
         public DateTime CreateTime { get; set; }
         public string Updator { get; set; }
         public Nullable<DateTime> UpdateTime { get; set; }
+
+        public string Tag { get; set; }
     }
 }

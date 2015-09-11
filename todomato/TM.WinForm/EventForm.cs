@@ -33,6 +33,10 @@ namespace TM.WinForm
             tomatoService = new TomatoService();
 
             this.ActiveControl = null; 
+
+            //TODO 顯示待辦事項列表
+
+            //TODO 顯示當日完成番茄列表
         }
 
         private void EventInit()
@@ -366,7 +370,7 @@ namespace TM.WinForm
                 tomatoService.FinishTomato(tomatoIdOfCurrentEvent);
                 todoService.FinishOneTomato(todoIdOfCurrentEvent);
 
-                //TODO UI 事件番茄數+1
+                // UI 事件番茄數+1
                 var todoEvent = "tomato_" + todoIdOfCurrentEvent;
                 Control currentLabel = splitPanel2.Controls[todoEvent];
                 currentLabel.Text = todoService.GetEventState(todoIdOfCurrentEvent);
@@ -438,7 +442,7 @@ namespace TM.WinForm
 
             if (result == DialogResult.Yes)
             {
-                //TODO 事件取消
+                //TODO db紀錄:事件取消
                 timer1.Enabled = false;
                 ticks = 0;
                 radProgressBar1.Value1 = 0;
@@ -463,7 +467,7 @@ namespace TM.WinForm
         {
             if (timer1.Enabled)
             {
-                //TODO 事件暫停
+                //TODO db紀錄:事件暫停
                 timer1.Stop();
                 btn_pause.Text = "繼續";
             }

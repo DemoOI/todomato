@@ -3,13 +3,14 @@
     angular.module('app')
         .controller('todo', MainCtrl);
 
-    function MainCtrl($scope, $interval) {
+    function MainCtrl($scope, $interval, todoService) {
         var vm = this;
         vm.todolist = [];
         vm.tomatolist = [];
         vm.needTomato = 1;
         vm.timerSeconds = 0;
         vm.timeDisplay;
+        vm.list = todoService.getList();
 
         vm.clickEvent = {
             addTodo: function () {

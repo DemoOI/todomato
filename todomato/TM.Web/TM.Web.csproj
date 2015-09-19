@@ -57,6 +57,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\images\csscheckbox_d663c0a5d6076996f51684bc5fe33daa.png" />
+    <Content Include="App\images\start-16.png" />
+    <Content Include="App\images\start-24.png" />
+    <Content Include="App\images\tomato-16.ico" />
+    <Content Include="App\scripts\services\todoService.js" />
     <Content Include="App\styles\sytle.css" />
     <Content Include="App\vendor\angular-bootstrap\.gitignore" />
     <Content Include="App\vendor\angular-bootstrap\index.js" />
@@ -65,6 +70,7 @@
     <Content Include="App\vendor\angular-bootstrap\ui-bootstrap-tpls.min.js" />
     <Content Include="App\vendor\angular-bootstrap\ui-bootstrap.js" />
     <Content Include="App\vendor\angular-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="App\vendor\angular\angular-timer.js" />
     <Content Include="App\vendor\angular\index.js" />
     <Content Include="App\vendor\jquery-1.11.2.min.js" />
     <Content Include="App\views\todo\list.html" />
@@ -151,7 +157,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2184</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1870/</IISUrl>
+          <IISUrl>http://localhost:1535/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

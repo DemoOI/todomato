@@ -10,7 +10,10 @@
         vm.needTomato = 1;
         vm.timerSeconds = 0;
         vm.timeDisplay;
-        vm.list = todoService.getList();
+        
+        todoService.getList().then(function(data){
+        	vm.list = data.data;
+        });
 
         vm.clickEvent = {
             addTodo: function () {

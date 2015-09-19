@@ -3,11 +3,7 @@
         .factory('todoService', ['$http', function($http) {
         	var method = {
 	            getList : function() {
-	                $http.get('api/api/Todo/GetTodo')
-	                    .success(function (data) {
-	                        console.log(data);
-	                    });
-	        		
+	                return $http.get('api/api/Todo/GetTodo')
 	            }
 	        }
             return method;

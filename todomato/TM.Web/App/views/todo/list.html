@@ -1,0 +1,52 @@
+﻿<div>
+    <div class="container">
+        <div class="page-header">
+            <h3>Todomato.</h3>
+        </div>
+        <div class="row">
+            <div class="col col-sm-5">
+                <div class="col-padding">
+                    <h3>待辦事項</h3>
+                    <hr>
+                    <input class="form-control" type="text" ng-model="t.todo" ng-keyup="$event.keyCode == 13 && t.clickEvent.addTodo()" placeholder="新增待辦事項" />
+                    <br> 完成番茄數 :
+                    <input class="form-control" style="width:70px; display:inline" type="number" ng-model="t.needTomato">
+                    <hr />
+                    <div ng-repeat="m in t.todolist">
+                        <input type="checkbox" ng-click="t.clickEvent.finishTodo()" id="{{m.id}}" class="css-checkbox" ng-model="m.IsChecked" />
+                        <label for="{{m.id}}" ng-class="{dellabel: m.IsChecked, csslabel:true}">{{m.todo}}</label>
+                        <label class="labelright" >
+                            ({{m.finishTomato}}/{{m.needTomato}}) &emsp;
+                            <img ng-hide="m.IsChecked" ng-click="t.clickEvent.startTodo(m)" class="labelright" src="/App/images/start-24.png" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="col-padding">
+                    <h3>番茄計時</h3>
+                    <hr />
+                    <div class="progress">
+                        <span class="progress-value">{{t.timeDisplay}}</span>
+                        <div class="progress-bar" style="width: {{t.timerSeconds}}%;">
+                        </div>
+                    </div>
+
+                    <div ng-repeat="tm in t.tomatolist">
+                        <div class="daylist">
+                            <label>
+                                <span class="gray">{{tm.starthour}}:{{tm.startmin}} &emsp;</span>
+                                <span>{{tm.todo}}</span>
+                            </label>
+                            <label class="labelright">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer></footer>
+</div>
+
+

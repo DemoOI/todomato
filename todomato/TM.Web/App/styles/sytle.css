@@ -1,0 +1,99 @@
+﻿body {
+    font-family:Microsoft JhengHei;
+}
+
+div .col {
+    margin: 10px;
+    border: 2px solid #DDD;
+    padding: 10px 40px 20px 20px;
+    /*background: #dddddd;*/
+    /*width: 300px;*/
+    border-radius: 15px;
+}
+
+/* Tablet and bigger */
+@media ( min-width: 768px ) {
+    .grid-divider {
+        position: relative;
+        padding: 0;
+    }
+
+        .grid-divider > [class*='col-'] {
+            position: static;
+        }
+
+            .grid-divider > [class*='col-']:nth-child(n+2):before {
+                content: "";
+                border-left: 1px solid #DDD;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+            }
+
+    .col-padding {
+        padding: 0 15px;
+    }
+}
+
+input[type=checkbox].css-checkbox {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+input[type=checkbox].css-checkbox + label.csslabel {
+    padding-left: 29px;
+    height: 24px;
+    display: inline-block;
+    line-height: 24px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 20px;
+    font-family:Microsoft JhengHei;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.csslabel {
+    background-position: 0 -24px;
+}
+
+label.csslabel {
+    background-image: url('../images/csscheckbox_d663c0a5d6076996f51684bc5fe33daa.png');
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*加刪除線*/
+.dellabel {
+    text-decoration: line-through;
+}
+
+/*靠右*/
+.labelright{
+    float:right 
+}
+
+.gray{
+    color: gray;
+}
+
+.progress {
+    text-align:center;
+}
+.progress-value {
+    position:absolute;
+    right:0;
+    left:0;
+}

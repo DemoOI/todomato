@@ -9,9 +9,9 @@
         vm.tomatolist = [];
         vm.needTomato = 1;
         vm.timerSeconds = 0;
-        vm.timeDisplay;
+        vm.timeDisplay = '番茄計時器';
         
-        todoService.getList().then(function(data){
+        todoService.getTodoList().then(function (data) {
         	vm.list = data.data;
         });
 
@@ -19,7 +19,7 @@
             addTodo: function () {
 				var newary = [];
 				newary.push({
-					id: "new",
+				    id: vm.method.guid(),
 					todo: vm.todo,
 					needTomato: vm.needTomato,
 					finishTomato: 0
@@ -38,12 +38,14 @@
                 console.log('start');
                 console.log(todo);
                 //計時開始
+                vm.timeDisplay = '25:00';
                 var newary = {};
-            	var max = 1500;
+            	var max = 300;
             	var sec = 60;
             	var date = new Date();
             	var startmin = date.getMinutes();
             	var starthour = date.getHours();
+
 
     	        var interval = $interval(function () {
     	        	sec -= 1;
@@ -51,9 +53,10 @@
     	        	max -= 1;
 		            vm.timerSeconds = (vm.timerSeconds + 1);
 		            vm.timeDisplay = Math.floor((max / 60)) + ':' + (sec % 60);
-	            	console.log(vm.timeDisplay);
+		            console.log(vm.timeDisplay);
+
 		            //時間終了
-		            if (vm.timerSeconds == 10) {
+		            if (vm.timerSeconds == max) {
 		                $interval.cancel(interval);
 
 		            	todo.finishTomato += 1;
@@ -61,13 +64,25 @@
 		            	newary.todo = todo.todo
 		            	newary.startmin = startmin;
 		            	newary.starthour = starthour;
-		                vm.tomatolist.push(newary);
+		            	vm.tomatolist.push(newary);
+		            	vm.timeDisplay = '番茄計時器'
 		            }
 		        }, 1000);
             }
         }
 
-        
+        vm.method = {
+            guid: function() {
+                function s4() {
+                    return Math.floor((1 + Math.random()) * 0x10000)
+                      .toString(16)
+                      .substring(1);
+                }
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                  s4() + '-' + s4() + s4() + s4();
+            }
+        }
+
         vm.todolist.push({
         	id: "1",
             todo: "一號事件",

@@ -11,7 +11,48 @@ namespace TM.WebAPI.Controllers
 {
     public class TodoController : ApiController
     {
-         private TodoService service;
+        private TodoService service;
+
+        //TODO 9/19 API 項目
+        /*
+          //新增待辦
+	            addTodo: function () {
+
+	            },
+                //刪除待辦
+	            delTodo: function () {
+
+	            },
+                //完成待辦
+	            finishTodo: function () {
+
+	            },
+                //更新待辦
+	            updateTodo: function () {
+
+	            },
+                //取得完成番茄清單
+	            getDoneList: function () {
+
+	            },
+                //開始番茄計時
+	            startCount: function () {
+
+	            },
+                //暫停番茄計時
+	            pauseCount: function () {
+
+	            },
+                //取消番茄計時
+	            cancelCount: function () {
+
+	            },
+                //完成番茄計時
+	            finishCount: function () {
+
+	            },
+         
+         */
 
         public TodoController()
         {

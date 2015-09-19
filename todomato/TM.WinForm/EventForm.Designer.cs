@@ -40,9 +40,9 @@
             this.documentWindow1 = new Telerik.WinControls.UI.Docking.DocumentWindow();
             this.radSplitContainer1 = new Telerik.WinControls.UI.RadSplitContainer();
             this.splitPanel1 = new Telerik.WinControls.UI.SplitPanel();
-            this.radTextBox1 = new Telerik.WinControls.UI.RadTextBox();
+            this.txt_tag = new Telerik.WinControls.UI.RadTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ddl_needTomato = new System.Windows.Forms.NumericUpDown();
             this.lb_predect = new System.Windows.Forms.Label();
             this.txt_todo = new Telerik.WinControls.UI.RadTextBox();
             this.splitPanel2 = new Telerik.WinControls.UI.SplitPanel();
@@ -51,6 +51,8 @@
             this.radDock3 = new Telerik.WinControls.UI.Docking.RadDock();
             this.documentContainer3 = new Telerik.WinControls.UI.Docking.DocumentContainer();
             this.splitPanel4 = new Telerik.WinControls.UI.SplitPanel();
+            this.btn_pause = new Telerik.WinControls.UI.RadButton();
+            this.btn_cancel = new Telerik.WinControls.UI.RadButton();
             this.radProgressBar1 = new Telerik.WinControls.UI.RadProgressBar();
             this.splitPanel5 = new Telerik.WinControls.UI.SplitPanel();
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
@@ -71,8 +73,6 @@
             this.object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf = new Telerik.WinControls.RootRadElement();
             this.toolTabStrip1 = new Telerik.WinControls.UI.Docking.ToolTabStrip();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btn_cancel = new Telerik.WinControls.UI.RadButton();
-            this.btn_pause = new Telerik.WinControls.UI.RadButton();
             this.visualStudio2012DarkTheme2 = new Telerik.WinControls.Themes.VisualStudio2012DarkTheme();
             ((System.ComponentModel.ISupportInitialize)(this.radDock1)).BeginInit();
             this.radDock1.SuspendLayout();
@@ -93,8 +93,8 @@
             this.radSplitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).BeginInit();
             this.splitPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_tag)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ddl_needTomato)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_todo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip2)).BeginInit();
@@ -106,6 +106,8 @@
             this.documentContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel4)).BeginInit();
             this.splitPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_pause)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radProgressBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
@@ -125,14 +127,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_pause)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // radDock1
             // 
-            this.radDock1.ActiveWindow = this.toolWindow2;
+            this.radDock1.ActiveWindow = this.documentWindow1;
             this.radDock1.Controls.Add(this.toolTabStrip3);
             this.radDock1.Controls.Add(this.documentContainer1);
             this.radDock1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -292,9 +292,9 @@
             // 
             // splitPanel1
             // 
-            this.splitPanel1.Controls.Add(this.radTextBox1);
+            this.splitPanel1.Controls.Add(this.txt_tag);
             this.splitPanel1.Controls.Add(this.label1);
-            this.splitPanel1.Controls.Add(this.numericUpDown);
+            this.splitPanel1.Controls.Add(this.ddl_needTomato);
             this.splitPanel1.Controls.Add(this.lb_predect);
             this.splitPanel1.Controls.Add(this.txt_todo);
             this.splitPanel1.Location = new System.Drawing.Point(0, 0);
@@ -311,13 +311,13 @@
             this.splitPanel1.Text = "splitPanel1";
             this.splitPanel1.ThemeName = "VisualStudio2012Dark";
             // 
-            // radTextBox1
+            // txt_tag
             // 
-            this.radTextBox1.Location = new System.Drawing.Point(56, 49);
-            this.radTextBox1.Name = "radTextBox1";
-            this.radTextBox1.Size = new System.Drawing.Size(260, 21);
-            this.radTextBox1.TabIndex = 6;
-            this.radTextBox1.ThemeName = "VisualStudio2012Dark";
+            this.txt_tag.Location = new System.Drawing.Point(56, 49);
+            this.txt_tag.Name = "txt_tag";
+            this.txt_tag.Size = new System.Drawing.Size(260, 21);
+            this.txt_tag.TabIndex = 6;
+            this.txt_tag.ThemeName = "VisualStudio2012Dark";
             // 
             // label1
             // 
@@ -328,13 +328,13 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "標籤 :";
             // 
-            // numericUpDown
+            // ddl_needTomato
             // 
-            this.numericUpDown.Location = new System.Drawing.Point(116, 76);
-            this.numericUpDown.Name = "numericUpDown";
-            this.numericUpDown.Size = new System.Drawing.Size(34, 22);
-            this.numericUpDown.TabIndex = 4;
-            this.numericUpDown.Value = new decimal(new int[] {
+            this.ddl_needTomato.Location = new System.Drawing.Point(116, 76);
+            this.ddl_needTomato.Name = "ddl_needTomato";
+            this.ddl_needTomato.Size = new System.Drawing.Size(34, 22);
+            this.ddl_needTomato.TabIndex = 4;
+            this.ddl_needTomato.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -462,6 +462,26 @@
             this.splitPanel4.TabStop = false;
             this.splitPanel4.Text = "splitPanel4";
             this.splitPanel4.ThemeName = "VisualStudio2012Dark";
+            // 
+            // btn_pause
+            // 
+            this.btn_pause.Enabled = false;
+            this.btn_pause.Location = new System.Drawing.Point(298, 15);
+            this.btn_pause.Name = "btn_pause";
+            this.btn_pause.Size = new System.Drawing.Size(33, 26);
+            this.btn_pause.TabIndex = 2;
+            this.btn_pause.Text = "暫停";
+            this.btn_pause.Click += new System.EventHandler(this.btn_pause_Click);
+            // 
+            // btn_cancel
+            // 
+            this.btn_cancel.Enabled = false;
+            this.btn_cancel.Location = new System.Drawing.Point(334, 15);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(33, 26);
+            this.btn_cancel.TabIndex = 1;
+            this.btn_cancel.Text = "取消";
+            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
             // 
             // radProgressBar1
             // 
@@ -691,26 +711,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btn_cancel
-            // 
-            this.btn_cancel.Enabled = false;
-            this.btn_cancel.Location = new System.Drawing.Point(334, 15);
-            this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.Size = new System.Drawing.Size(33, 26);
-            this.btn_cancel.TabIndex = 1;
-            this.btn_cancel.Text = "取消";
-            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
-            // 
-            // btn_pause
-            // 
-            this.btn_pause.Enabled = false;
-            this.btn_pause.Location = new System.Drawing.Point(298, 15);
-            this.btn_pause.Name = "btn_pause";
-            this.btn_pause.Size = new System.Drawing.Size(33, 26);
-            this.btn_pause.TabIndex = 2;
-            this.btn_pause.Text = "暫停";
-            this.btn_pause.Click += new System.EventHandler(this.btn_pause_Click);
-            // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -744,8 +744,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel1)).EndInit();
             this.splitPanel1.ResumeLayout(false);
             this.splitPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_tag)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ddl_needTomato)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_todo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentTabStrip2)).EndInit();
@@ -757,6 +757,8 @@
             this.documentContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel4)).EndInit();
             this.splitPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btn_pause)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radProgressBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitPanel5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
@@ -778,8 +780,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toolTabStrip1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_cancel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_pause)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -813,9 +813,9 @@
         private Telerik.WinControls.UI.RadTextBox txt_todo;
         private Telerik.WinControls.UI.SplitPanel splitPanel2;
         private Telerik.WinControls.RootRadElement object_2dfc1d8d_5782_41ad_b55e_13e9bb800ebf;
-        private System.Windows.Forms.NumericUpDown numericUpDown;
+        private System.Windows.Forms.NumericUpDown ddl_needTomato;
         private System.Windows.Forms.Label lb_predect;
-        private Telerik.WinControls.UI.RadTextBox radTextBox1;
+        private Telerik.WinControls.UI.RadTextBox txt_tag;
         private System.Windows.Forms.Label label1;
         private Telerik.WinControls.UI.Docking.ToolTabStrip toolTabStrip2;
         private Telerik.WinControls.UI.Docking.DocumentTabStrip documentTabStrip2;

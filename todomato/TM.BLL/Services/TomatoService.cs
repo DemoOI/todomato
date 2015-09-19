@@ -14,10 +14,12 @@ namespace TM.BLL.Services
     public class TomatoService
     {
         private IRepository<Tomato> db;
+        private IRepository<Todo> todoDb;
 
         public TomatoService() 
         {
             db = new GenericRepository<Tomato>();
+            todoDb = new GenericRepository<Todo>();
         }
 
         /// <summary>
@@ -73,17 +75,33 @@ namespace TM.BLL.Services
             return Mapper.Map<Tomato, TomatoViewModel>(DbResult);
         }
 
+
         /// <summary>新增番茄資料</summary>
         /// <returns></returns>
-        public void AddTomato(TomatoViewModel models)
+        public string AddTomato(TomatoViewModel models)
         {
             models.TomatoID = Guid.NewGuid().ToString();
             models.CreateTime = DateTime.Now;
             models.IsCompleted = false;
 
-            Mapper.CreateMap<TomatoViewModel, Tomato>();
+            Mapper.CreateMap<TomatoViewModel, Tomato>()
+                    .ForMember(x => x.SpentTime, y => y.Ignore())
+                    .ForMember(x => x.FinishTime, y => y.Ignore());
             var Tomato = Mapper.Map<TomatoViewModel, Tomato>(models);
             db.Insert(Tomato);
+
+            return models.TomatoID;
+        }
+
+        /// <summary>新增番茄資料</summary>
+        /// <returns></returns>
+        public void FinishTomato(string tomatoID)
+        {
+
+            Tomato tomato = db.GetByID(tomatoID);
+            tomato.IsCompleted = true;
+            tomato.FinishTime = DateTime.Now;
+            db.Update(tomato);            
         }
 
         /// <summary>番茄暫停</summary>

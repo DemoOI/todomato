@@ -15,10 +15,12 @@ namespace TM.BLL.Services
    public class TodoService
     {
         private IRepository<Todo> db;
+        private IRepository<Tomato> tomatoDb;
 
         public TodoService() 
         {
             db = new GenericRepository<Todo>();
+            tomatoDb = new GenericRepository<Tomato>();
         }
 
 
@@ -47,29 +49,42 @@ namespace TM.BLL.Services
         /// <summary>取得待辦資訊</summary>
         /// <param name="TodoID"></param>
         /// <returns></returns>
-        public TodoViewModel Get(string TodoID)
+        public TodoViewModel GetById(string TodoID)
         {
             var DbResult = db.Get().Where(c => c.TodoID.Trim() == TodoID.Trim()).FirstOrDefault();
             Mapper.CreateMap<Todo, TodoViewModel>();
             return Mapper.Map<Todo, TodoViewModel>(DbResult);
         }
 
+        /// <summary>取得待辦目前完成狀況</summary>
+        /// <param name="TodoID"></param>
+        /// <returns></returns>
+        public string GetEventState(string TodoID)
+        {
+            var DbResult = db.Get().Where(c => c.TodoID.Trim() == TodoID.Trim()).SingleOrDefault();
+            string result = string.Format("({0}/{1})", DbResult.DoneTomato, DbResult.NeedTomato);
+            return result;
+        }
+
         /// <summary>新增待辦資料</summary>
         /// <returns></returns>
         public void AddTodo(TodoViewModel models)
         {
-            models.TodoID = Guid.NewGuid().ToString();
+            //models.TodoID = Guid.NewGuid().ToString();
             models.CreateTime = DateTime.Now;
             models.Creator = "system";
 
             Mapper.CreateMap<TodoViewModel, Todo>();
             var todo = Mapper.Map<TodoViewModel, Todo>(models);
             db.Insert(todo);
+
+            //TODO 存入標籤
+
         }
 
         /// <summary>儲存待辦資訊</summary>
         /// <param name="models"></param>
-        public void SaveTodo(TodoViewModel models)
+        public void UpdateTodo(TodoViewModel models)
         {
             // 建立Mapping邏輯，只更新
             Mapper.CreateMap<TodoViewModel, Todo>()
@@ -90,12 +105,35 @@ namespace TM.BLL.Services
             db.Update(todo);
         }
 
+        /// <summary>完成待辦資訊</summary>
+        /// <param name="models"></param>
+        public void FinishTodo(string TodoID, bool done=true)
+        {
+            Todo todo = db.GetByID(TodoID);
+            todo.IsFinish = done;
+            todo.UpdateTime = DateTime.Now;
+            todo.Updator = "system";
+
+            db.Update(todo);
+        }
+
+        /// <summary>完成一個番茄待辦資訊</summary>
+        /// <param name="models"></param>
+        public void FinishOneTomato(string TodoID)
+        {
+            Todo todo = db.GetByID(TodoID);
+            todo.DoneTomato = (todo.DoneTomato == null) ? 1 : todo.DoneTomato + 1;
+            todo.UpdateTime = DateTime.Now;
+            todo.Updator = "system";
+            db.Update(todo);
+        }
+
         /// <summary>刪除待辦資訊</summary>
         /// <param name="TodoID"></param>
         public void Delete(string TodoID)
         {
-            var todo = db.GetByID(TodoID);
-            db.Delete(todo);
+            //var todo = GetById(TodoID);
+            db.Delete(TodoID);
         }
     }
 }

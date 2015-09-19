@@ -9,24 +9,34 @@ using System.Windows.Forms;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
 using Telerik.WinControls.UI.Docking;
+using TM.BLL.Services;
+using TM.Domain.ViewModel;
 
 namespace TM.WinForm
 {
     public partial class EventForm : Telerik.WinControls.UI.RadForm
     {
+        private TodoService todoService;
+        private TomatoService tomatoService;
         private int label_fontsize = 10;
-        private string label_fontfamily = "cursive";
+        private string label_fontfamily = "Comic Sans MS, Verdana";
         private string titleOfCurrentEvent;
-        private string labelIdOfCurrentEvent;
+        private string tomatoIdOfCurrentEvent;
+        private string todoIdOfCurrentEvent;
 
         public EventForm()
         {
             InitializeComponent();
             //事件初始化
             EventInit();
-
+            todoService = new TodoService();
+            tomatoService = new TomatoService();
 
             this.ActiveControl = null; 
+
+            //TODO 顯示待辦事項列表
+
+            //TODO 顯示當日完成番茄列表
         }
 
         private void EventInit()
@@ -193,37 +203,59 @@ namespace TM.WinForm
                 {
                     if (c is Label) lb_count += 1;
                 }
-                var location_heigh = 25 * lb_count;
+                var location_heigh = 25 * lb_count / 2;
                 var location_width = 35;
                 var value = txt_todo.Text;
+                var tag = txt_tag.Text;
+                var needToamtoCount = (int)ddl_needTomato.Value;
                 //var panel = new Panel();
                 var label = new Label();
+                var tomatoLabel = new Label();
                 var checkbox = new RadCheckBox();
                 var startButton = new RadButton();
+                var deleteButton = new RadButton();
                 var id = Guid.NewGuid().ToString();
 
-                //執行新增待辦事件
+                //UI新增待辦事件
                 label.Name = "lb_" + id;
-                label.Text = value;
+                label.Text = string.Format("{0}", value);
                 label.AutoSize = true;
                 label.Font = new Font(label_fontfamily, label_fontsize);
-                label.Location = new Point(location_width, location_heigh);
+                label.Location = new Point(location_width+35, location_heigh);
+
+                tomatoLabel.Name = "tomato_" + id;
+                tomatoLabel.Text = string.Format("(0/{0})", needToamtoCount);
+                tomatoLabel.AutoSize = true;
+                tomatoLabel.Font = new Font(label_fontfamily, label_fontsize);
+                tomatoLabel.Location = new Point(location_width, location_heigh);
 
                 checkbox.Name = id;
-                checkbox.Location = new Point(location_width - 22, location_heigh + 4);
+                checkbox.Location = new Point(location_width - 22, location_heigh+4);
                 checkbox.CheckStateChanged += checkbox_CheckStateChanged;
 
                 startButton.Name = "btn_" + id;
-                startButton.Location = new Point(location_width + 220, location_heigh + 4);
-                startButton.Text = "啟用";
-                startButton.Width = 43;
+                startButton.Location = new Point(location_width + 222, location_heigh+4);
+                startButton.Text = "啟";
+                startButton.Width = 22;
                 startButton.Height = 18;
                 startButton.Click += startButton_Click;
 
+                deleteButton.Name = "del_btn_" + id;
+                deleteButton.Location = new Point(location_width + 200, location_heigh+4);
+                deleteButton.Text = "刪";
+                deleteButton.Width = 22;
+                deleteButton.Height = 18;
+                deleteButton.Click += deleteButton_Click; ;
+
                 splitPanel2.Controls.Add(label);
+                splitPanel2.Controls.Add(tomatoLabel);
                 splitPanel2.Controls.Add(checkbox);
                 splitPanel2.Controls.Add(startButton);
-                //TODO 資料存到資料庫
+                splitPanel2.Controls.Add(deleteButton);
+
+                //資料存到資料庫
+                TodoViewModel data = new TodoViewModel() { TodoID = id, Title = value, Tag = tag, NeedTomato = needToamtoCount };
+                todoService.AddTodo(data);
 
                 //完成後狀態
                 txt_todo.Text = "";
@@ -231,31 +263,61 @@ namespace TM.WinForm
             }
         }
 
+
+
         void checkbox_CheckStateChanged(object sender, EventArgs e)
         {
             // 完成事件流程 + 劃掉該事件
             RadCheckBox ck = sender as RadCheckBox;
-            var lableID = "lb_" + ck.Name;
-            var btnID = "btn_" + ck.Name;
+            var id = ck.Name;
+            var lableID = "lb_" + id;
+            var btnID = "btn_" + id;
+            var delBtnID = "del_btn_" + id;
             Control currentLabel = ck.Parent.Controls[lableID];
-            Control currentbtn = ck.Parent.Controls[btnID];
+            Control currentBtn = ck.Parent.Controls[btnID];
+            Control currentDelBtn = ck.Parent.Controls[delBtnID];
 
             if (ck.Checked)
             {
                 currentLabel.Font = new Font(label_fontfamily, label_fontsize, FontStyle.Strikeout);
-                currentbtn.Visible = false;
-                //TODO 儲存完成事件
-
+                currentBtn.Visible = false;
+                currentDelBtn.Visible = false;
+                // 儲存完成事件
+                todoService.FinishTodo(id);
             }
             else
             {
                 currentLabel.Font = new Font(label_fontfamily, label_fontsize);
-                currentbtn.Visible = true;
-                //TODO 取消事見
-
+                currentBtn.Visible = true;
+                currentDelBtn.Visible = true;
+                // 取消事見
+                todoService.FinishTodo(id, false);
             }
 
+          
+        }
 
+        void deleteButton_Click(object sender, EventArgs e)
+        {
+            RadButton btn = sender as RadButton;
+            var id = btn.Name.Replace("del_btn_", "");
+            todoService.Delete(id);
+
+            //清除UI
+            var lableID = "lb_" + id;
+            var tomatoLableID = "tomato_" + id;
+            var btnID = "btn_" + id;
+            var delBtnID = "del_btn_" + id;
+            Control currentLabel = btn.Parent.Controls[lableID];
+            Control currentTomatoLabel = btn.Parent.Controls[tomatoLableID];
+            Control currentBtn = btn.Parent.Controls[btnID];
+            Control currentDelBtn = btn.Parent.Controls[delBtnID];
+            Control currentCkbox = btn.Parent.Controls[id];
+            currentLabel.Dispose();
+            currentTomatoLabel.Dispose();
+            currentBtn.Dispose();
+            currentDelBtn.Dispose();
+            currentCkbox.Dispose();
         }
         #endregion
        
@@ -265,15 +327,19 @@ namespace TM.WinForm
         void startButton_Click(object sender, EventArgs e)
         {
             RadButton btn = sender as RadButton;
-            var lableID = btn.Name.Replace("btn_", "lb_");
+            var id = btn.Name.Replace("btn_","");
+            var lableID = "lb_" + id;
             var title = btn.Parent.Controls[lableID].Text;
 
-            //TODO 啟用記時器
+            // 新增番茄
+            tomatoIdOfCurrentEvent = tomatoService.AddTomato(new TomatoViewModel(){TodoID = id});
+
+            // 啟用記時器
             timer1.Enabled = true;
             btn_cancel.Enabled = true;
             btn_pause.Enabled = true;
             titleOfCurrentEvent = title;
-            labelIdOfCurrentEvent = lableID;
+            todoIdOfCurrentEvent = id;
         }
 
         //計時器 每格時間點做什麼事情
@@ -297,11 +363,17 @@ namespace TM.WinForm
                 ticks = 0;
                 radProgressBar1.Value1 = 0;
                 radProgressBar1.Text = "番茄計時器";
+                btn_cancel.Enabled = false;
+                btn_pause.Enabled = false;
 
-                //TODO 實作番茄紀錄list
+                // 完成番茄紀錄
+                tomatoService.FinishTomato(tomatoIdOfCurrentEvent);
+                todoService.FinishOneTomato(todoIdOfCurrentEvent);
 
-                //TODO UI 事件番茄數+1
-                //titleOfCurrentEvent
+                // UI 事件番茄數+1
+                var todoEvent = "tomato_" + todoIdOfCurrentEvent;
+                Control currentLabel = splitPanel2.Controls[todoEvent];
+                currentLabel.Text = todoService.GetEventState(todoIdOfCurrentEvent);
 
                 //TODO UI 實作番茄紀錄list
                 var lb_count = 0;
@@ -370,7 +442,7 @@ namespace TM.WinForm
 
             if (result == DialogResult.Yes)
             {
-                //TODO 事件取消
+                //TODO db紀錄:事件取消
                 timer1.Enabled = false;
                 ticks = 0;
                 radProgressBar1.Value1 = 0;
@@ -395,7 +467,7 @@ namespace TM.WinForm
         {
             if (timer1.Enabled)
             {
-                //TODO 事件暫停
+                //TODO db紀錄:事件暫停
                 timer1.Stop();
                 btn_pause.Text = "繼續";
             }

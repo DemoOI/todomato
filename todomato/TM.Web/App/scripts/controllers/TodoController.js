@@ -11,33 +11,47 @@
         vm.timerSeconds = 0;
         vm.timeDisplay = '番茄計時器';
         
-        todoService.getTodoList().then(function (data) {
-        	vm.list = data.data;
+        todoService.getTodoList().then(function (obj) {
+            console.log('取得待辦列表:');
+            console.log(obj.data)
+            vm.todolist = obj.data;
         });
 
+        // 觸發事件
         vm.clickEvent = {
+            // 新增待辦
             addTodo: function () {
-				var newary = [];
-				newary.push({
-				    id: vm.method.guid(),
-					todo: vm.todo,
-					needTomato: vm.needTomato,
-					finishTomato: 0
-				});
-				angular.forEach(vm.todolist, function(item, idx){
-				    newary.push(item);
-				});
-				vm.todolist = newary;
-				//初始化
-				vm.todo = "";
+                var newary = [];
+
+                todoService.addTodo(vm.todo, vm.needTomato).then(function (obj) {
+                    var t = obj.data;
+                    newary.push({
+                        TodoID: t.TodoID,
+                        Title: t.Title,
+                        NeedTomato: t.NeedTomato,
+                        DoneTomato: t.DoneTomato
+                    });
+
+                    angular.forEach(vm.todolist, function (item, idx) {
+                        newary.push(item);
+                    });
+                    vm.todolist = newary;
+
+                    //初始化
+                    vm.todo = "";
+                });
             },
-            finishTodo: function(){
-            	console.log('finish');
+            // 完成待辦
+            finishTodo: function (todo) {
+                todoService.finishTodo(todo.TodoID).then(function (obj) {
+                    console.log(obj);
+                });
             },
+            // 開始待辦計時
             startTodo: function(todo){
                 console.log('start');
                 console.log(todo);
-                //計時開始
+                // 計時開始
                 vm.timeDisplay = '25:00';
                 var newary = {};
             	var max = 300;
@@ -71,30 +85,7 @@
             }
         }
 
-        vm.method = {
-            guid: function() {
-                function s4() {
-                    return Math.floor((1 + Math.random()) * 0x10000)
-                      .toString(16)
-                      .substring(1);
-                }
-                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-                  s4() + '-' + s4() + s4() + s4();
-            }
-        }
 
-        vm.todolist.push({
-        	id: "1",
-            todo: "一號事件",
-            needTomato: 3,
-            finishTomato: 0
-        });
-         vm.todolist.push({
-            id: "2",
-            todo: "二號事件",
-            needTomato: 3,
-            finishTomato: 0
-        });
     }
 
 })()

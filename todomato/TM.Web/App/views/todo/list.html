@@ -13,10 +13,10 @@
                     <input class="form-control" style="width:70px; display:inline" type="number" ng-model="t.needTomato">
                     <hr />
                     <div ng-repeat="m in t.todolist">
-                        <input type="checkbox" ng-click="t.clickEvent.finishTodo()" id="{{m.id}}" class="css-checkbox" ng-model="m.IsChecked" />
-                        <label for="{{m.id}}" ng-class="{dellabel: m.IsChecked, csslabel:true}">{{m.todo}}</label>
+                        <input type="checkbox" ng-click="t.clickEvent.finishTodo(m)" id="{{m.TodoID}}" class="css-checkbox" ng-model="m.IsChecked" />
+                        <label for="{{m.TodoID}}" ng-class="{dellabel: m.IsChecked, csslabel:true}">{{m.Title}}</label>
                         <label class="labelright" >
-                            ({{m.finishTomato}}/{{m.needTomato}}) &emsp;
+                            ({{m.DoneTomato}}/{{m.NeedTomato}}) &emsp;
                             <img ng-hide="m.IsChecked" ng-click="t.clickEvent.startTodo(m)" class="labelright" src="/App/images/start-24.png" />
                         </label>
                     </div>

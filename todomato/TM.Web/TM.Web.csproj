@@ -78,7 +78,6 @@
     <Content Include="App\scripts\app.js" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="App\scripts\controllers\todoController.js" />
-    <Content Include="App\scripts\controllers\tomatoController.js" />
     <Content Include="App\vendor\angular\angular-touch.min.js.map" />
     <Content Include="App\vendor\angular\angular-sanitize.min.js.map" />
     <Content Include="App\vendor\angular\angular-route.min.js.map" />

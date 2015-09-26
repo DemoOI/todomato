@@ -9,4 +9,6 @@
         route.otherwise({ templateUrl: '/utils-404' });
     }
     ]);
+
+    app.value('WebAPIHost', 'http://localhost:1535/api/api');
 })();

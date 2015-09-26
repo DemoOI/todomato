@@ -13,53 +13,12 @@ namespace TM.WebAPI.Controllers
     {
         private TodoService service;
 
-        //TODO 9/19 API 項目
-        /*
-          //新增待辦
-	            addTodo: function () {
-
-	            },
-                //刪除待辦
-	            delTodo: function () {
-
-	            },
-                //完成待辦
-	            finishTodo: function () {
-
-	            },
-                //更新待辦
-	            updateTodo: function () {
-
-	            },
-                //取得完成番茄清單
-	            getDoneList: function () {
-
-	            },
-                //開始番茄計時
-	            startCount: function () {
-
-	            },
-                //暫停番茄計時
-	            pauseCount: function () {
-
-	            },
-                //取消番茄計時
-	            cancelCount: function () {
-
-	            },
-                //完成番茄計時
-	            finishCount: function () {
-
-	            },
-         
-         */
-
         public TodoController()
         {
             service = new TodoService();
         }
 
-        // GET: api/Todo
+        // 取得待辦清單
         [HttpGet]
         public HttpResponseMessage GetTodo()
         {
@@ -99,11 +58,11 @@ namespace TM.WebAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(int TodoID)
+        public HttpResponseMessage Get([FromBody]string id)
         {
             try
             {
-                var data = service.GetById(TodoID.ToString());
+                var data = service.GetById(id.ToString());
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -114,13 +73,14 @@ namespace TM.WebAPI.Controllers
 
         }
  
-        // POST: api/Todo
+        // 新增待辦
+        [HttpPost]
         public HttpResponseMessage Add(TodoViewModel models)
         {
             try
             {
-                service.AddTodo(models);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                var result = service.AddTodo(models);
+                return Request.CreateResponse(result);
             }
             catch (Exception ex)
             {
@@ -128,7 +88,7 @@ namespace TM.WebAPI.Controllers
             }
         }
 
-        // PUT: api/Todo/5
+        //CHECK 更新待辦
         public HttpResponseMessage Update(TodoViewModel models)
         {
             try
@@ -142,18 +102,51 @@ namespace TM.WebAPI.Controllers
             }
         }
 
-        // DELETE: api/Todo/5
-        public HttpResponseMessage Delete(Guid id)
+        // 刪除待辦
+        [HttpPost]
+        public HttpResponseMessage Delete([FromBody]string id)
         {
             try
             {
                 service.Delete(id.ToString());
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK, true);
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message.ToString());
             }
         }
+
+        // 完成待辦
+        [HttpPost]
+        public HttpResponseMessage FinishTodo([FromBody]string id)
+        {
+            try
+            {
+                service.FinishTodo(id.ToString());
+                return Request.CreateResponse(HttpStatusCode.OK, true);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message.ToString());
+            }
+        }
+
+        // 完成待辦
+        [HttpPost]
+        public HttpResponseMessage CancelFinishTodo([FromBody]string id)
+        {
+            try
+            {
+                service.FinishTodo(id.ToString(),false);
+                return Request.CreateResponse(HttpStatusCode.OK, true);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message.ToString());
+            }
+        }
+
+
     }
 }

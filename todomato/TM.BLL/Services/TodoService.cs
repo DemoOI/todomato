@@ -28,7 +28,11 @@ namespace TM.BLL.Services
         /// <returns></returns>
         public List<TodoViewModel> Get()
         {
-            var DbResult = db.Get().ToList();
+            var DbResult = db.Get()
+                    .Where(t => t.IsFinish != true)
+                    .OrderByDescending(t => t.CreateTime)
+                    .ToList();
+
             Mapper.CreateMap<Todo, TodoViewModel>();
             return Mapper.Map<List<Todo>, List<TodoViewModel>>(DbResult);
         }
@@ -68,9 +72,9 @@ namespace TM.BLL.Services
 
         /// <summary>新增待辦資料</summary>
         /// <returns></returns>
-        public void AddTodo(TodoViewModel models)
+        public TodoViewModel AddTodo(TodoViewModel models)
         {
-            //models.TodoID = Guid.NewGuid().ToString();
+            models.TodoID = Guid.NewGuid().ToString();
             models.CreateTime = DateTime.Now;
             models.Creator = "system";
 
@@ -79,7 +83,7 @@ namespace TM.BLL.Services
             db.Insert(todo);
 
             //TODO 存入標籤
-
+            return models;
         }
 
         /// <summary>儲存待辦資訊</summary>
@@ -117,16 +121,6 @@ namespace TM.BLL.Services
             db.Update(todo);
         }
 
-        /// <summary>完成一個番茄待辦資訊</summary>
-        /// <param name="models"></param>
-        public void FinishOneTomato(string TodoID)
-        {
-            Todo todo = db.GetByID(TodoID);
-            todo.DoneTomato = (todo.DoneTomato == null) ? 1 : todo.DoneTomato + 1;
-            todo.UpdateTime = DateTime.Now;
-            todo.Updator = "system";
-            db.Update(todo);
-        }
 
         /// <summary>刪除待辦資訊</summary>
         /// <param name="TodoID"></param>

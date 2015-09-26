@@ -9,6 +9,7 @@ using TM.Domain.ViewModel;
 
 namespace TM.WebAPI.Controllers
 {
+  
     public class TomatoController : ApiController
     {
         private TomatoService service;
@@ -18,7 +19,7 @@ namespace TM.WebAPI.Controllers
             service = new TomatoService();
         }
 
-        // GET: api/Tomato
+        // 取得完成番茄清單
         [HttpGet]
         public HttpResponseMessage GetTomato()
         {
@@ -53,10 +54,11 @@ namespace TM.WebAPI.Controllers
             }
 
         }
-            
- 
-        // POST: api/Tomato
-        public HttpResponseMessage Start(TomatoViewModel models)
+
+
+        // 開始番茄計時
+        [HttpPost]
+        public HttpResponseMessage StartTomato(TomatoViewModel models)
         {
             try
             {
@@ -69,8 +71,9 @@ namespace TM.WebAPI.Controllers
             }
         }
 
-        // POST: api/Tomato
-        public HttpResponseMessage Pause(TomatoViewModel models)
+        // 暫停番茄計時
+        [HttpPost]
+        public HttpResponseMessage PauseTomato(TomatoViewModel models)
         {
             try
             {
@@ -83,19 +86,38 @@ namespace TM.WebAPI.Controllers
             }
         }
 
-        // Cancel: api/Tomato/5
-        public HttpResponseMessage Cancel(string id)
+        // 取消番茄計時
+        [HttpPost]
+        public HttpResponseMessage CancelTomato([FromBody]string tomatoID)
         {
             try
             {
                 //將番茄標記為刪除
-                service.Delete(id.ToString());
-                return Request.CreateResponse(HttpStatusCode.OK);
+                service.Delete(tomatoID);
+                return Request.CreateResponse(HttpStatusCode.OK, true);
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message.ToString());
             }
         }
+
+        // 完成番茄計時
+        [HttpPost]
+        public HttpResponseMessage FinishTomato([FromBody]string tomatoID)
+        {
+            try
+            {
+                //將番茄標記為刪除
+                service.FinishTomato(tomatoID);
+
+                return Request.CreateResponse(HttpStatusCode.OK, true);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message.ToString());
+            }
+        }
+
     }
 }

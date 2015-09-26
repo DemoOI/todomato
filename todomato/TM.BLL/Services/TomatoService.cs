@@ -11,6 +11,8 @@ using TM.Domain.ViewModel;
 
 namespace TM.BLL.Services
 {
+   
+
     public class TomatoService
     {
         private IRepository<Tomato> db;
@@ -93,15 +95,22 @@ namespace TM.BLL.Services
             return models.TomatoID;
         }
 
-        /// <summary>新增番茄資料</summary>
+        /// <summary>完成番茄</summary>
         /// <returns></returns>
         public void FinishTomato(string tomatoID)
         {
+            //TODO 加入Transaction
 
             Tomato tomato = db.GetByID(tomatoID);
             tomato.IsCompleted = true;
             tomato.FinishTime = DateTime.Now;
-            db.Update(tomato);            
+            db.Update(tomato);
+
+            Todo todo = todoDb.GetByID(tomato.TodoID);
+            todo.DoneTomato = (todo.DoneTomato == null) ? 1 : todo.DoneTomato + 1;
+            todo.UpdateTime = DateTime.Now;
+            todo.Updator = "system";
+            todoDb.Update(todo);
         }
 
         /// <summary>番茄暫停</summary>

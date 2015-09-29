@@ -37,8 +37,8 @@ namespace TM.BLL.Services
 
 
             //組裝以天為單位的番茄list
-            var tomatoLists = DbResult.GroupBy(u => String.Format("{0:MM/dd/yyyy}", u.FinishTime))
-                                    .Select(g => tList = g.ToList())
+            var tomatoLists = DbResult.GroupBy(u => String.Format("{0:yyyy/MM/dd}", u.FinishTime))
+                                    .Select(g => tList = g.OrderBy(item => item.FinishTime).ToList())
                                     .ToList();
             tomatoLists.ForEach(x => result.Add(new TomatoListByDayViewModel(x)));
 
@@ -102,15 +102,19 @@ namespace TM.BLL.Services
             //TODO 加入Transaction
 
             Tomato tomato = db.GetByID(tomatoID);
-            tomato.IsCompleted = true;
-            tomato.FinishTime = DateTime.Now;
-            db.Update(tomato);
+            if (tomato != null)
+            {
+                tomato.IsCompleted = true;
+                tomato.FinishTime = DateTime.Now;
 
-            Todo todo = todoDb.GetByID(tomato.TodoID);
-            todo.DoneTomato = (todo.DoneTomato == null) ? 1 : todo.DoneTomato + 1;
-            todo.UpdateTime = DateTime.Now;
-            todo.Updator = "system";
-            todoDb.Update(todo);
+                Todo todo = todoDb.GetByID(tomato.TodoID);
+                todo.DoneTomato = (todo.DoneTomato == null) ? 1 : todo.DoneTomato + 1;
+                todo.UpdateTime = DateTime.Now;
+                todo.Updator = "system";
+
+                db.Update(tomato);
+                todoDb.Update(todo);
+            }
         }
 
         /// <summary>番茄暫停</summary>

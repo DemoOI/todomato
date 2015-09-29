@@ -15,9 +15,9 @@
                     <div ng-repeat="m in t.todolist">
                         <input type="checkbox" ng-click="t.clickEvent.finishTodo(m)" id="{{m.TodoID}}" class="css-checkbox" ng-model="m.IsChecked" />
                         <label for="{{m.TodoID}}" ng-class="{dellabel: m.IsChecked, csslabel:true}">{{m.Title}}</label>
-                        <label class="labelright" >
+                        <label class="labelright">
                             ({{m.DoneTomato}}/{{m.NeedTomato}}) &emsp;
-                            <img ng-hide="m.IsChecked" ng-click="t.clickEvent.startTodo(m)" class="labelright" src="/App/images/start-24.png" />
+                            <img ng-hide="m.IsChecked || t.IsStart" ng-click="t.clickEvent.startTodo(m)" class="labelright" src="/App/images/start-24.png" />
                         </label>
                     </div>
                 </div>
@@ -32,14 +32,27 @@
                         </div>
                     </div>
 
-                    <div ng-repeat="tm in t.tomatolist">
-                        <div class="daylist">
-                            <label>
-                                <span class="gray">{{tm.starthour}}:{{tm.startmin}} &emsp;</span>
-                                <span>{{tm.todo}}</span>
-                            </label>
-                            <label class="labelright">
-                            </label>
+                    <div ng-repeat="tm in t.tomatolistofday">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label><span class="gray">{{tm.Date | date:'yyyy:MM:dd'}}</span></label>
+                            </div>
+                            <div class="col-sm-9">&emsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="daylist" ng-repeat="item in tm.TomatoList">
+                                <div class="col-sm-3">
+                                    <span class="gray">{{item.CreateTime | date:'mm:ss'}}~ {{item.FinishTime | date:'mm:ss'}} </span>
+                                </div>
+                                <div class="col-sm-9">
+                                    <label>
+                                        <span>{{item.Todo.Title}}</span>
+                                    </label>
+                                    <label class="labelright">
+                                        <span>{{item.Todo.Title}}</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

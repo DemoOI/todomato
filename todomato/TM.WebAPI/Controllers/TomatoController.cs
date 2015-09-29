@@ -62,8 +62,8 @@ namespace TM.WebAPI.Controllers
         {
             try
             {
-                service.AddTomato(models);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                string tomatoID = service.AddTomato(models);
+                return Request.CreateResponse(HttpStatusCode.OK, tomatoID);
             }
             catch (Exception ex)
             {
@@ -110,8 +110,9 @@ namespace TM.WebAPI.Controllers
             {
                 //將番茄標記為刪除
                 service.FinishTomato(tomatoID);
-
-                return Request.CreateResponse(HttpStatusCode.OK, true);
+                // 取得番茄資料
+                var datas = service.GetWeekListByDay(); 
+                return Request.CreateResponse(HttpStatusCode.OK, datas);
             }
             catch (Exception ex)
             {

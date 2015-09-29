@@ -6,15 +6,23 @@
     function MainCtrl($scope, $interval, todoService) {
         var vm = this;
         vm.todolist = [];
-        vm.tomatolist = [];
+        vm.tomatolistofday = [];
         vm.needTomato = 1;
         vm.timerSeconds = 0;
         vm.timeDisplay = '番茄計時器';
         
-        todoService.getTodoList().then(function (obj) {
+
+        //todo 應該合併一起拿
+        todoService.getTodoList().then(function (todos) {
             console.log('取得待辦列表:');
-            console.log(obj.data)
-            vm.todolist = obj.data;
+            console.log(todos.data)
+            vm.todolist = todos.data;
+        });
+
+        todoService.getDoneList().then(function (tomatos) {
+            console.log('取得完成番茄列表:');
+            console.log(tomatos.data)
+            vm.tomatolistofday = tomatos.data;
         });
 
         // 觸發事件
@@ -48,13 +56,21 @@
                 });
             },
             // 開始待辦計時
-            startTodo: function(todo){
-                console.log('start');
-                console.log(todo);
+            startTodo: function (todo) {
+                //隱藏開btn
+                vm.IsStart = true;
+
+                // 新增番茄service 
+                var tomatoID;
+                todoService.startCount(todo).then(function (obj) {
+                    tomatoID = obj.data;
+                    console.log('新增番茄service done');
+                    console.log(obj);
+                });
+                
                 // 計時開始
                 vm.timeDisplay = '25:00';
-                var newary = {};
-            	var max = 300;
+            	var max = 10;
             	var sec = 60;
             	var date = new Date();
             	var startmin = date.getMinutes();
@@ -73,13 +89,21 @@
 		            if (vm.timerSeconds == max) {
 		                $interval.cancel(interval);
 
-		            	todo.finishTomato += 1;
-		            	vm.timerSeconds = 0;
-		            	newary.todo = todo.todo
-		            	newary.startmin = startmin;
-		            	newary.starthour = starthour;
-		            	vm.tomatolist.push(newary);
-		            	vm.timeDisplay = '番茄計時器'
+		                //完成番茄 service
+		                todoService.finishCount(tomatoID).then(function (tomatos) {
+		                    console.log('完成番茄 service done');
+		                    console.log(tomatos.data);
+		                    vm.tomatolistofday = tomatos.data;
+
+		                    //reset
+		                    todo.DoneTomato += 1;
+		                    vm.timerSeconds = 0;
+		                    vm.timeDisplay = '番茄計時器'
+		                    vm.IsStart = false;
+                            alert("完成了一顆番茄,請讓眼睛休息五分鐘唷!!!")
+		                });
+
+                       
 		            }
 		        }, 1000);
             }

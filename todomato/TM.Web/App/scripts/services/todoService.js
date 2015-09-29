@@ -21,7 +21,7 @@
                           // or server returns response with an error status.
                       });
 	            },
-                //刪除待辦
+                //TODO 刪除待辦
 	            delTodo: function () {
 
 	            },
@@ -36,29 +36,38 @@
 	                    // or server returns response with an error status.
 	                });
 	            },
-                //更新待辦
+                //TODO 更新待辦
 	            updateTodo: function () {
 
 	            },
-                //取得完成番茄清單
+                //TODO 取得完成番茄清單
 	            getDoneList: function () {
-
+	                //GetWeekListByDay
+	                return $http.get('api/api/Tomato/GetWeekListByDay')
 	            },
                 //開始番茄計時
-	            startCount: function () {
-
+	            startCount: function (todo) {
+	                return $http.post(WebAPIHost + '/Tomato/StartTomato', todo)
+	                .then(function (response) {
+	                    console.log(response);
+	                    return response;
+	                });
 	            },
-                //暫停番茄計時
+                //TODO 暫停番茄計時
 	            pauseCount: function () {
 
 	            },
-                //取消番茄計時
+                //TODO 取消番茄計時
 	            cancelCount: function () {
 
 	            },
                 //完成番茄計時
-	            finishCount: function () {
-
+	            finishCount: function (id) {
+	                return $http.post(WebAPIHost + '/Tomato/FinishTomato', JSON.stringify(id))
+                   .then(function (response) {
+                       console.log(response);
+                       return response;
+                   });
 	            },
 	        }
             return method;

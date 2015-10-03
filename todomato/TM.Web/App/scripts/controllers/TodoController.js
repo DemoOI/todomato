@@ -70,7 +70,8 @@
                 
                 // 計時開始
                 vm.timeDisplay = '25:00';
-            	var max = 10;
+                var max = 1500;
+                var setMaxTime = 1500;
             	var sec = 60;
             	var date = new Date();
             	var startmin = date.getMinutes();
@@ -86,7 +87,7 @@
 		            console.log(vm.timeDisplay);
 
 		            //時間終了
-		            if (vm.timerSeconds == max) {
+		            if (vm.timerSeconds == setMaxTime) {
 		                $interval.cancel(interval);
 
 		                //完成番茄 service
@@ -100,7 +101,9 @@
 		                    vm.timerSeconds = 0;
 		                    vm.timeDisplay = '番茄計時器'
 		                    vm.IsStart = false;
-                            alert("完成了一顆番茄,請讓眼睛休息五分鐘唷!!!")
+		                    
+		                    alert("完成了一顆番茄,請讓眼睛休息五分鐘唷!!!");
+		                    notifyMe();
 		                });
 
                        
@@ -110,6 +113,37 @@
         }
 
 
+    }
+
+    function notifyMe() {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        }
+
+        else if (Notification.permission === "granted") {
+            var notification = new Notification("完成一顆番茄!");
+        }
+
+            // Otherwise, we need to ask the user for permission
+            // Note, Chrome does not implement the permission static property
+            // So we have to check for NOT 'denied' instead of 'default'
+        else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+
+                // Whatever the user answers, we make sure we store the information
+                if (!('permission' in Notification)) {
+                    Notification.permission = permission;
+                }
+
+                // If the user is okay, let's create a notification
+                if (permission === "granted") {
+                    var notification = new Notification("完成一顆番茄!");
+                }
+            });
+        }
+
+        // At last, if the user already denied any notification, and you
+        // want to be respectful there is no need to bother him any more.
     }
 
 })()

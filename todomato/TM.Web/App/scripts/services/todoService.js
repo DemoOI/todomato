@@ -4,7 +4,7 @@
             var method = {
                 //取得待辦清單
 	            getTodoList : function() {
-	                return $http.get('api/api/Todo/GetTodo')
+	                return $http.get(WebAPIHost + '/Todo/GetTodo')
 	            },
                 //新增待辦
 	            addTodo: function (todo, needTomato) {
@@ -43,7 +43,7 @@
                 //TODO 取得完成番茄清單
 	            getDoneList: function () {
 	                //GetWeekListByDay
-	                return $http.get('api/api/Tomato/GetWeekListByDay')
+	                return $http.get(WebAPIHost + '/Tomato/GetWeekListByDay')
 	            },
                 //開始番茄計時
 	            startCount: function (todo) {

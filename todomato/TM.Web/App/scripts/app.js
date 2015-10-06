@@ -10,5 +10,6 @@
     }
     ]);
 
-    app.value('WebAPIHost', 'http://localhost:1535/api/api');
+    //app.value('WebAPIHost', 'http://localhost:1535/api/api');
+    app.value('WebAPIHost', 'http://posp.brightideas.com.tw/api');
 })();

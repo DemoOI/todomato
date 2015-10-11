@@ -11,6 +11,7 @@
                     <input class="form-control" type="text" ng-model="t.todo" ng-keyup="$event.keyCode == 13 && t.clickEvent.addTodo()" placeholder="新增待辦事項" />
                     <br> 完成番茄數 :
                     <input class="form-control" style="width:70px; display:inline" type="number" ng-model="t.needTomato">
+                    <br><br> 標籤 : <input class="form-control" style="width:250px; display:inline" ng-model="t.tags">
                     <hr />
                     <div ng-repeat="m in t.todolist">
                         <input type="checkbox" ng-click="t.clickEvent.finishTodo(m)" id="{{m.TodoID}}" class="css-checkbox" ng-model="m.IsChecked" />
@@ -19,6 +20,7 @@
                             ({{m.DoneTomato}}/{{m.NeedTomato}}) &emsp;
                             <img ng-hide="m.IsChecked || t.IsStart" ng-click="t.clickEvent.startTodo(m)" class="labelright" src="/App/images/start-24.png" />
                         </label>
+                       <button class="btn btn-default" ng-repeat="tag in m.Tag track by $index">{{tag}}</button>
                     </div>
                 </div>
             </div>

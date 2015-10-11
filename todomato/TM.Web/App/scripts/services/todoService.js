@@ -7,11 +7,12 @@
 	                return $http.get(WebAPIHost + '/Todo/GetTodo')
 	            },
                 //新增待辦
-	            addTodo: function (todo, needTomato) {
+	            addTodo: function (vm) {
 	                return $http.post(WebAPIHost + '/Todo/Add', {
-	                    "Title": todo,
-	                    "NeedTomato": needTomato,
-                        "DoneTomato": '0'
+	                    "Title": vm.todo,
+	                    "NeedTomato": vm.needTomato,
+                        "DoneTomato": '0',
+                        "Tags": vm.tags           
 	                }).
                       then(function (response) {
                           console.log(response);

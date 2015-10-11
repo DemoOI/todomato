@@ -9,7 +9,7 @@
         vm.tomatolistofday = [];
         vm.needTomato = 1;
         vm.timerSeconds = 0;
-        vm.timeDisplay = '番茄計時器';
+        vm.timeDisplay = '番茄計時器';      
         
 
         //todo 應該合併一起拿
@@ -19,6 +19,7 @@
             vm.todolist = todos.data;
         });
 
+        
         todoService.getDoneList().then(function (tomatos) {
             console.log('取得完成番茄列表:');
             console.log(tomatos.data)
@@ -31,13 +32,14 @@
             addTodo: function () {
                 var newary = [];
 
-                todoService.addTodo(vm.todo, vm.needTomato).then(function (obj) {
+                todoService.addTodo(vm).then(function (obj) {
                     var t = obj.data;
                     newary.push({
                         TodoID: t.TodoID,
                         Title: t.Title,
                         NeedTomato: t.NeedTomato,
-                        DoneTomato: t.DoneTomato
+                        DoneTomato: t.DoneTomato,
+                		Tags: t.tags
                     });
 
                     angular.forEach(vm.todolist, function (item, idx) {
